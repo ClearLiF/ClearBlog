@@ -1,0 +1,6 @@
+server:
+  port: 8080
+  context-path: /test2
+mybatis:
+  mapper-locations: classpath*:generator/*.xml
+  type-aliases-package: com.lfq.generate

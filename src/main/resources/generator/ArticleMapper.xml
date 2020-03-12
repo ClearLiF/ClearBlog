@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfq.generate.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.lfq.generate.Article">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+    <result column="authority" jdbcType="INTEGER" property="authority" />
+    <result column="statu" jdbcType="INTEGER" property="statu" />
+    <result column="views" jdbcType="BIGINT" property="views" />
+    <result column="like_count" jdbcType="BIGINT" property="likeCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, author, createtime, title, body, authority, statu, views, like_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from article
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Article" useGeneratedKeys="true">
+    insert into article (author, createtime, title, 
+      body, authority, statu, 
+      views, like_count)
+    values (#{author,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, #{title,jdbcType=VARCHAR}, 
+      #{body,jdbcType=VARCHAR}, #{authority,jdbcType=INTEGER}, #{statu,jdbcType=INTEGER}, 
+      #{views,jdbcType=BIGINT}, #{likeCount,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Article" useGeneratedKeys="true">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="author != null">
+        author,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+      <if test="authority != null">
+        authority,
+      </if>
+      <if test="statu != null">
+        statu,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="authority != null">
+        #{authority,jdbcType=INTEGER},
+      </if>
+      <if test="statu != null">
+        #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=BIGINT},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lfq.generate.Article">
+    update article
+    <set>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="authority != null">
+        authority = #{authority,jdbcType=INTEGER},
+      </if>
+      <if test="statu != null">
+        statu = #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=BIGINT},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lfq.generate.Article">
+    update article
+    set author = #{author,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=DATE},
+      title = #{title,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      authority = #{authority,jdbcType=INTEGER},
+      statu = #{statu,jdbcType=INTEGER},
+      views = #{views,jdbcType=BIGINT},
+      like_count = #{likeCount,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

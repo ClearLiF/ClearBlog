@@ -1,11 +1,13 @@
 package com.lfq.web.controller;
 
+import com.lfq.config.DirComponent;
 import com.lfq.dto.ArticleDTD;
 import com.lfq.dto.UploadResultDTO;
 import com.lfq.generate.Article;
 import com.lfq.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +27,7 @@ import java.util.UUID;
  */
 @Controller//声明rest风格的控制器
 //@EnableAutoConfiguration// 相当于写了配置文件
-public class HelloController {
-    @Value("${uploadDir}")
-    private String uploadDir;
-
+public class HelloController extends DirComponent {
 
     private BlogService blogService;
     @Autowired
@@ -54,7 +53,7 @@ public class HelloController {
             file.transferTo(new File(uploadDir + dest));
             resultDTO.setSuccess(1);
             resultDTO.setMessage("图片上传成功！");
-            resultDTO.setUrl("/uploads/" + dest);
+            resultDTO.setUrl("/uploadTmp/" + dest);
             System.out.println("成功");
         } catch (IOException e) {
             resultDTO.setSuccess(0);
@@ -83,9 +82,9 @@ public class HelloController {
         article.setAuthor("2fbbc3c5-6425-11ea-bffb-00ffc23825e9");
         article.setAuthority(1);
         article.setTitle(articleDTD.getTitle());
-        article.setBody(articleDTD.getMarkdownContent());
+        article.setBody(articleDTD.getMarkdownContent().replaceAll(uploadDirMapper,uploadDirRealMapper));
         article.setCreatetime(new Date());
-        blogService.insert(article);
+        blogService.insert(article,articleDTD.getHtmlContent());
 
         ModelAndView mv = new ModelAndView();
         return "Success";
@@ -96,7 +95,7 @@ public class HelloController {
     @RequestMapping("return")
     public ModelAndView returnView(Model model){
         ModelAndView mv = new ModelAndView();
-        final Article article = blogService.selectByPrimaryKey("39c1b4b5-6473-11ea-bffb-00ffc23825e9");
+        final Article article = blogService.selectByPrimaryKey("f4da1e5c-64cd-11ea-bffb-00ffc23825e9");
 
         mv.addObject("md",article.getBody());
         mv.setViewName("views/blog");

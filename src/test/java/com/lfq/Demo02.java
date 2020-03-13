@@ -21,7 +21,7 @@ public class Demo02 {
         //![](/uploads/678c2632-7e8e-4896-a40a-a62b2f13984a.png)
         //D:/IDEAWorkSpace2/cacheImg/
         //D:/IDEAWorkSpace2/blogImg/
-        String s= "<h1 id=\"h1-u4F4Eu6D3Cu77A7u5F97u8D77u6211\"><a name=\"低洼瞧得起我\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>低洼瞧得起我</h1><h3 id=\"h3-u4F4Eu6D3Cu77A7u5F97u8D77u6211\"><a name=\"低洼瞧得起我\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>低洼瞧得起我</h3><p>低洼瞧得起我<br><img src=\"/uploads/5bb4f000-3490-40b8-a300-a7cdce69ebba.png\" alt=\"\"><br>低洼瞧得起我<img src=\"/uploads/86050000-b5f0-40de-9df7-4cd3d3341b42.png\" alt=\"\"></p>\n";
+        String s= "<h1 id=\"h1-u4F4Eu6D3Cu77A7u5F97u8D77u6211\"><a name=\"低洼瞧得起我\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>低洼瞧得起我</h1><h3 id=\"h3-u4F4Eu6D3Cu77A7u5F97u8D77u6211\"><a name=\"低洼瞧得起我\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>低洼瞧得起我</h3><p>低洼瞧得起我<br><img src=\"/uploadTmp/5bb4f000-3490-40b8-a300-a7cdce69ebba.png\" alt=\"\"><br>低洼瞧得起我<img src=\"/uploads/86050000-b5f0-40de-9df7-4cd3d3341b42.png\" alt=\"\"></p>\n";
         // File file = new File() String regex = "(?<=one)(?=123)";
         String regs = "!\\[]\\(";         //<img  src='aaa.jpg' /><img src=bbb.png/>
         Pattern pattern = Pattern.compile("<img\\s+src=(?:['\"])?(?<src>\\w+.(jpg|png))(?:['\"])?\\s*/>");
@@ -55,7 +55,7 @@ public class Demo02 {
             Matcher m = Pattern.compile(reg_html_img_src_http).matcher(img);
             m.find();
             String group = m.group();
-            pics.add(group.substring(5, group.length() - 1));
+            pics.add(group.substring(16, group.length() - 1));
         }
         return pics;
     }

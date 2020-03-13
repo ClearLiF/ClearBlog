@@ -34,15 +34,16 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
     public int insert(Article record) {
 
         articlemapper.insertSelective(record);
-        int i = replacePhoto(record.getBody());
         return 0;
     }
     public int insert(Article record,String html) {
-        List<String> list = getMatchString("<img.*?>", html, false);
-
+       int status=0;
+         List<String> list = getMatchString("<img.*?>", html, false);
+        if (list.size()!=0){
+            status=replacePhoto(list);
+        }
         articlemapper.insertSelective(record);
-        int i = replacePhoto(record.getBody());
-        return 0;
+        return status;
     }
 
 
@@ -65,26 +66,30 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
     public int updateByPrimaryKey(Article record) {
         return 0;
     }
+
     /**
      * 无建议(默认)
-     * @description 将缓存中的图片转移到永久路径下
+     * @description
      * @author ClearLi
-     * @date 2020/3/12 22:47
-     * @param s 判断的字符串
+     * @date 2020/3/13 8:21
+     * @param list
      * @return int
      */
-
-    private int replacePhoto(String s ){
+    private int replacePhoto(List<String > list){
         int status=0;
-        if (s.contains("![]")){
-            File startFiles=new File(uploadDir);
-            File[] files = startFiles.listFiles();
-            for (File file : files) {
-                if (replacePhoto(file)==-1){
-                    status=-1;
-                }
-            }
+        for (String s : list) {
+            System.out.println("处理的东西"+uploadDir+s);
+            File file = new File(uploadDir + s);
+            System.out.println(file);
+            status= replacePhoto(file);
         }
+           /* File startFiles=new File(uploadDir);
+        File[] files = startFiles.listFiles();
+        for (File file : files) {
+            if (replacePhoto(file)==-1){
+                status=-1;
+            }
+        }*/
         return status;
     }
     private int  replacePhoto(File startFile){
@@ -98,9 +103,9 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
         File endFile=new File(endDirection+ File.separator+ startFile.getName());
         try {
             if (startFile.renameTo(endFile)) {
-                System.out.println("文件移动正常");
+                System.out.println("文件移动正常"+startFile.getAbsolutePath());
             }else {
-                System.out.println("不正常");
+                System.out.println("不正常"+startFile.getAbsolutePath());
             }
         }catch(Exception e) {
             // System.out.println("文件移动出现异常！起始路径：{"+startFile.getAbsolutePath()+"}");
@@ -129,7 +134,7 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
             Matcher m = Pattern.compile(reg_html_img_src_http).matcher(img);
             m.find();
             String group = m.group();
-            pics.add(group.substring(5, group.length() - 1));
+            pics.add(group.substring(16, group.length() - 1));
         }
         return pics;
     }

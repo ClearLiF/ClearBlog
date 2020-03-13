@@ -11,5 +11,5 @@ import com.lfq.generate.Article;
  */
 public interface BlogService extends IBaseService<Article> {
 
-
+    public int insert(Article record,String html);
 }

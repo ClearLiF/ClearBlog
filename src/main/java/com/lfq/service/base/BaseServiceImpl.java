@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+
 /**
  * @author: 李琪
  * @date: 2020/3/8
@@ -23,6 +25,8 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     }
     @Autowired
     public void setUsermapper(UserMapper usermapper) {
+
         this.usermapper = usermapper;
     }
+
 }

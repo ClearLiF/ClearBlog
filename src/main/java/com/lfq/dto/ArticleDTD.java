@@ -5,7 +5,7 @@ package com.lfq.dto;
  * @date: 2020/3/11
  * @description 一般类
  */
-public class Article {
+public class ArticleDTD {
     private String title;
     private String htmlContent;
     private String markdownContent;

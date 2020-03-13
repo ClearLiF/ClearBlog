@@ -91,8 +91,6 @@
         </div>
 </div>
 </div>
-
-
 </body>
 <script>
 
@@ -103,18 +101,17 @@
 
     function submit_atricle() {
         var title = $("#title").val();
-        var htmlContent = testEditor.getMarkdown();
-        var markdownContent = testEditor.getHTML();
+        var markdownContent = testEditor.getMarkdown();
+        var htmlContent = testEditor.getHTML();
         console.log(htmlContent+markdownContent);
         $.ajax({
             url: "/editorContent",
             data: JSON.stringify({title: title, htmlContent: htmlContent, markdownContent: markdownContent}),
             type: "POST",
-            dataType: 'html',
             contentType: 'application/json',
             success: function () {
                 alert("发布成功");
-               open($.html(data));
+               //open($.html(data));
             },
             error: function () {
                 alert("发布失败");

@@ -1,7 +1,10 @@
 package com.lfq.web.controller;
 
-import com.lfq.dto.Article;
+import com.lfq.dto.ArticleDTD;
 import com.lfq.dto.UploadResultDTO;
+import com.lfq.generate.Article;
+import com.lfq.service.BlogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -25,6 +29,13 @@ public class HelloController {
     @Value("${uploadDir}")
     private String uploadDir;
 
+
+    private BlogService blogService;
+    @Autowired
+    public void setBlogService(BlogService blogService) {
+        this.blogService = blogService;
+    }
+
     @RequestMapping("hello")
     public String  hello(){
         return "views/list";
@@ -37,8 +48,8 @@ public class HelloController {
         UploadResultDTO resultDTO = new UploadResultDTO();
         String originalFilename = file.getOriginalFilename();
         //String dest = System.currentTimeMillis() + "_" + originalFilename;
-
-        String dest  =  UUID.randomUUID().toString();
+        String s = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String dest  =  UUID.randomUUID().toString().concat(s);
         try {
             file.transferTo(new File(uploadDir + dest));
             resultDTO.setSuccess(1);
@@ -54,8 +65,10 @@ public class HelloController {
     }
 
     @RequestMapping(value = "editorContent",method = RequestMethod.POST)
-    public ModelAndView articleContent(@RequestBody Article article){
-        System.out.println("MD文本");
+    @ResponseBody
+    public String  articleContent(@RequestBody ArticleDTD articleDTD){
+
+        /*System.out.println("MD文本");
         System.out.println(article.getMarkdownContent());
         System.out.println("HTML文本");
         System.out.println(article.getHtmlContent());
@@ -63,19 +76,29 @@ public class HelloController {
         ModelAndView mv = new ModelAndView();
         mv.addObject("html",article.getHtmlContent());
         mv.addObject("md",article.getMarkdownContent());
-        mv.setViewName("views/blog");
-        return  mv;
+        mv.setViewName("views/blog");*/
+        System.out.println("HTML文本");
+        System.out.println(articleDTD.getHtmlContent());
+        Article article = new Article();
+        article.setAuthor("2fbbc3c5-6425-11ea-bffb-00ffc23825e9");
+        article.setAuthority(1);
+        article.setTitle(articleDTD.getTitle());
+        article.setBody(articleDTD.getMarkdownContent());
+        article.setCreatetime(new Date());
+        blogService.insert(article);
+
+        ModelAndView mv = new ModelAndView();
+        return "Success";
+      /*  mv.addObject("html",articleDTD.getHtmlContent());
+        mv.addObject("md",articleDTD.getMarkdownContent());
+        return  mv;*/
     }
     @RequestMapping("return")
-    @ResponseBody
     public ModelAndView returnView(Model model){
         ModelAndView mv = new ModelAndView();
-        mv.addObject("md","dwqdqw\n" +
-                "## qwdqwdq\n" +
-                "###### qwdqdqw\n" +
-                "~~wqdqdqw~~\n" +
-                "![](/uploads/e82d65d1-2f9b-4ae3-980a-cc384fa1bf48)");
-        mv.addObject("html","<h2 id=\"h2-u540Au889Cu5E26u6211\"><a name=\"吊袜带我\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>吊袜带我</h2>\n");
+        final Article article = blogService.selectByPrimaryKey("39c1b4b5-6473-11ea-bffb-00ffc23825e9");
+
+        mv.addObject("md",article.getBody());
         mv.setViewName("views/blog");
         return mv;
     }

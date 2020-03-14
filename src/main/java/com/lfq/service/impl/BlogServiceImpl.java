@@ -1,5 +1,6 @@
 package com.lfq.service.impl;
 
+import com.lfq.generate.Sysfield;
 import com.lfq.service.BlogService;
 import com.lfq.service.base.BaseServiceImpl;
 import com.lfq.generate.Article;
@@ -44,6 +45,11 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
         }
         articlemapper.insertSelective(record);
         return status;
+    }
+
+    @Override
+    public List<Sysfield> selectByParentId(String MyColums, String ParentId) {
+        return  sysfieldMapper.selectByParentId(MyColums,ParentId);
     }
 
 

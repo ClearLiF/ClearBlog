@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfq.generate.SysfieldMapper">
+  <resultMap id="BaseResultMap" type="com.lfq.generate.Sysfield">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="MyTexts" jdbcType="VARCHAR" property="mytexts" />
+    <result column="ParentId" jdbcType="VARCHAR" property="parentid" />
+    <result column="MyTables" jdbcType="VARCHAR" property="mytables" />
+    <result column="MyColums" jdbcType="VARCHAR" property="mycolums" />
+    <result column="Sort" jdbcType="INTEGER" property="sort" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="CreateTime" jdbcType="DATE" property="createtime" />
+    <result column="CreatePerson" jdbcType="VARCHAR" property="createperson" />
+    <result column="UpdateTime" jdbcType="DATE" property="updatetime" />
+    <result column="UpdatePerson" jdbcType="VARCHAR" property="updateperson" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, MyTexts, ParentId, MyTables, MyColums, Sort, Remark, CreateTime, CreatePerson, 
+    UpdateTime, UpdatePerson
+  </sql>
+  <select id="selectByParentId" resultMap="BaseResultMap">
+    select
+       <include refid="Base_Column_List"/>
+    from sysfield
+        <where>
+      <if test="1!=0">
+        <if test="MyColums != null and MyColums!=''">
+        MyColums=#{MyColums}
+      </if>
+    <if test="ParentId != null and ParentId!=''">
+      and ParentId=#{ParentId}
+    </if>
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sysfield
+
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sysfield
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.lfq.generate.Sysfield" useGeneratedKeys="true">
+    insert into sysfield (MyTexts, ParentId, MyTables, 
+      MyColums, Sort, Remark, 
+      CreateTime, CreatePerson, UpdateTime, 
+      UpdatePerson)
+    values (#{mytexts,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{mytables,jdbcType=VARCHAR}, 
+      #{mycolums,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=DATE}, #{createperson,jdbcType=VARCHAR}, #{updatetime,jdbcType=DATE}, 
+      #{updateperson,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.lfq.generate.Sysfield" useGeneratedKeys="true">
+    insert into sysfield
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mytexts != null">
+        MyTexts,
+      </if>
+      <if test="parentid != null">
+        ParentId,
+      </if>
+      <if test="mytables != null">
+        MyTables,
+      </if>
+      <if test="mycolums != null">
+        MyColums,
+      </if>
+      <if test="sort != null">
+        Sort,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="createperson != null">
+        CreatePerson,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="updateperson != null">
+        UpdatePerson,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mytexts != null">
+        #{mytexts,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="mytables != null">
+        #{mytables,jdbcType=VARCHAR},
+      </if>
+      <if test="mycolums != null">
+        #{mycolums,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="createperson != null">
+        #{createperson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="updateperson != null">
+        #{updateperson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lfq.generate.Sysfield">
+    update sysfield
+    <set>
+      <if test="mytexts != null">
+        MyTexts = #{mytexts,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        ParentId = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="mytables != null">
+        MyTables = #{mytables,jdbcType=VARCHAR},
+      </if>
+      <if test="mycolums != null">
+        MyColums = #{mycolums,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        Sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="createperson != null">
+        CreatePerson = #{createperson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="updateperson != null">
+        UpdatePerson = #{updateperson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lfq.generate.Sysfield">
+    update sysfield
+    set MyTexts = #{mytexts,jdbcType=VARCHAR},
+      ParentId = #{parentid,jdbcType=VARCHAR},
+      MyTables = #{mytables,jdbcType=VARCHAR},
+      MyColums = #{mycolums,jdbcType=VARCHAR},
+      Sort = #{sort,jdbcType=INTEGER},
+      Remark = #{remark,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=DATE},
+      CreatePerson = #{createperson,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=DATE},
+      UpdatePerson = #{updateperson,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

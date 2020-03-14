@@ -49,5 +49,11 @@ public class demo01   {
         System.out.println(blogService.selectByPrimaryKey("1d56dc5b-645e-11ea-bffb-00ffc23825e9"));
 
     }
+    @Test
+    public void test4(){
+        System.out.println("测试下划线-----------------");
+        System.out.println(blogService.selectByParentId("City", "610000"));
+
+    }
 
 }

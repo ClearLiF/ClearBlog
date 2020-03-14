@@ -3,6 +3,7 @@ package com.lfq.web.controller;
 import com.lfq.config.DirComponent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author: 李琪
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller//声明rest风格的控制器
 //@EnableAutoConfiguration// 相当于写了配置文件
-@RequestMapping("user")
+@RequestMapping(value = "user")
 public class UserController extends DirComponent {
 
 

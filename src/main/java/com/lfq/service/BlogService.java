@@ -16,4 +16,6 @@ public interface BlogService extends IBaseService<Article> {
 
     public int insert(Article record,String html);
     List<Sysfield> selectByParentId(String MyColums , String  ParentId);
+
+
 }

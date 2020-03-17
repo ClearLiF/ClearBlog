@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 /**
  * @author: 李琪
  * @date: 2020/3/11
- * @description 一般类
+ * @description 做映射路径的类(已作废)
  */
-@Configuration
 
+//@Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Value("${uploadDirReal}")
     private String uploadDirReal;

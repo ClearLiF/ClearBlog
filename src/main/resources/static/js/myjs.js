@@ -1,149 +1,61 @@
-$(document).ready(function() {
-    // Generate a simple captcha
-    function randomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    };
-    $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
+/**生成一个随机数**/
+let contxts;
 
-    $('#defaultForm').bootstrapValidator({
-//        live: 'disabled',
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            firstName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            lastName: {
-                group: '.col-lg-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The last name is required and cannot be empty'
-                    }
-                }
-            },
-            username: {
-                message: 'The username is not valid',
-                validators: {
-                    notEmpty: {
-                        message: 'The username is required and cannot be empty'
-                    },
-                    stringLength: {
-                        min: 6,
-                        max: 30,
-                        message: 'The username must be more than 6 and less than 30 characters long'
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_\.]+$/,
-                        message: 'The username can only consist of alphabetical, number, dot and underscore'
-                    },
-                    remote: {
-                        type: 'POST',
-                        url: 'remote.php',
-                        message: 'The username is not available'
-                    },
-                    different: {
-                        field: 'password,confirmPassword',
-                        message: 'The username and password cannot be the same as each other'
-                    }
-                }
-            },
-            email: {
-                validators: {
-                    emailAddress: {
-                        message: 'The input is not a valid email address'
-                    }
-                }
-            },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: 'The password is required and cannot be empty'
-                    },
-                    identical: {
-                        field: 'confirmPassword',
-                        message: 'The password and its confirm are not the same'
-                    },
-                    different: {
-                        field: 'username',
-                        message: 'The password cannot be the same as username'
-                    }
-                }
-            },
-            confirmPassword: {
-                validators: {
-                    notEmpty: {
-                        message: 'The confirm password is required and cannot be empty'
-                    },
-                    identical: {
-                        field: 'password',
-                        message: 'The password and its confirm are not the same'
-                    },
-                    different: {
-                        field: 'username',
-                        message: 'The password cannot be the same as username'
-                    }
-                }
-            },
-            birthday: {
-                validators: {
-                    date: {
-                        format: 'YYYY/MM/DD',
-                        message: 'The birthday is not valid'
-                    }
-                }
-            },
-            gender: {
-                validators: {
-                    notEmpty: {
-                        message: 'The gender is required'
-                    }
-                }
-            },
-            'languages[]': {
-                validators: {
-                    notEmpty: {
-                        message: 'Please specify at least one language you can speak'
-                    }
-                }
-            },
-            'programs[]': {
-                validators: {
-                    choice: {
-                        min: 2,
-                        max: 4,
-                        message: 'Please choose 2 - 4 programming languages you are good at'
-                    }
-                }
-            },
-            captcha: {
-                validators: {
-                    callback: {
-                        message: 'Wrong answer',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
-                    }
-                }
-            }
-        }
-    });
+function randomNum(min,max){
+    return Math.floor( Math.random()*(max-min)+min);
+}
+/**生成一个随机色**/
+function randomColor(min,max){
+    var r = randomNum(min,max);
+    var g = randomNum(min,max);
+    var b = randomNum(min,max);
+    return "rgb("+r+","+g+","+b+")";
+}
+/**绘制验证码图片**/
+function drawPic(){
+    var canvas=document.getElementById("canvas");
+    var width=canvas.width;
+    var height=canvas.height;
+    var ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'bottom';
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
+    /**绘制背景色**/
+    ctx.fillStyle = randomColor(180,240); //颜色若太深可能导致看不清
+    ctx.fillRect(0,0,width,height);
+    contxts="";
+    /**绘制文字**/
+    var str = 'ABCEFGHJKLMNPQRSTWXY123456789';
+    for(var i=0; i<4; i++){
+        var txt = str[randomNum(0,str.length)];
+        contxts+=txt;
+        ctx.fillStyle = randomColor(50,160);  //随机生成字体颜色
+        ctx.font = randomNum(20,40)+'px SimHei'; //随机生成字体大小
+        var x = 10+i*25;
+        var y = randomNum(25,45);
+        var deg = randomNum(-45, 45);
+        //修改坐标原点和旋转角度
+        ctx.translate(x,y);
+        ctx.rotate(deg*Math.PI/180);
+        ctx.fillText(txt, 0,0);
+        //恢复坐标原点和旋转角度
+        ctx.rotate(-deg*Math.PI/180);
+        ctx.translate(-x,-y);
+    }
+    /**绘制干扰线**/
+    for(var i=0; i<8; i++){
+        ctx.strokeStyle = randomColor(40,180);
+        ctx.beginPath();
+        ctx.moveTo( randomNum(0,width), randomNum(0,height) );
+        ctx.lineTo( randomNum(0,width), randomNum(0,height) );
+        ctx.stroke();
+    }
+    /**绘制干扰点**/
+    for(var i=0; i<100; i++){
+        ctx.fillStyle = randomColor(0,255);
+        ctx.beginPath();
+        ctx.arc(randomNum(0,width),randomNum(0,height), 1, 0, 2*Math.PI);
+        ctx.fill();
+    }
+}
 
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
-    });
-});
+

@@ -1,8 +1,10 @@
 package com.lfq;
 
 import com.lfq.generate.Article;
+import com.lfq.generate.User;
 import com.lfq.service.BlogService;
 import com.lfq.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import java.util.Date;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = App.class)
+@Slf4j
 public class demo01   {
     @Autowired
     private UserService userService ;
@@ -26,6 +29,7 @@ public class demo01   {
     private BlogService blogService;
     @Test
     public void test1(){
+        log.info("测试");
         System.out.println(userService);
         System.out.println(userService.selectByPrimaryKey("2fbbc3c5-6425-11ea-bffb-00ffc23825e9"));
     }
@@ -54,6 +58,16 @@ public class demo01   {
         System.out.println("测试下划线-----------------");
         System.out.println(blogService.selectByParentId("City", "610000"));
 
+    }
+    @Test
+    public void test5(){
+        System.out.println("测试下划线-----------------");
+        System.out.println(userService.insertSelective(new User()));
+        //System.out.println(userService.findUsername("clear1"));
+    }
+    @Test
+    public void test6(){
+        System.out.println(userService.loginUser("", "111111","l18512863192@gmail.com"));
     }
 
 }

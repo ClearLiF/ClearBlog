@@ -20,7 +20,6 @@
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 			<![endif]-->
 	</head>
-
 	<body data-spy="scroll">
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -32,18 +31,27 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"><img src="${request.contextPath}/blog/images/clear.png" alt="company logo" /></a>
+					<a class="navbar-brand" href="/blog/home"><img src="${request.contextPath}/blog/images/clear.png" alt="company logo" /></a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right custom-menu">
 						<li class="active"><a href="#home">主页</a></li>
 						<li><a href="#about">关于</a></li>
-						<li><a href="#servi"ces>服务</a></li>
+						<li><a href="#servi">服务</a></li>
 				<#--		<li><a href="#meet-team">Team</a></li>-->
 						<li><a href="#portfolio1">作品</a><li>
 						<li><a href="/user/register">注册</a></li>
-						<li><a href="blog.html">博客</a></li>
-						<li><a href="single-post.html">Single</a></li>
+						<li><a href="/blog/toBlogHome">博客</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">联系站长 <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/user/login">登录</a></li>
+								<li role="separator" class="divider"></li>
+								<li class="dropdown-header">联系站长</li>
+								<li><a href="#">给站长送吃的</a></li>
+								<li><a href="#">给站长吐槽</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>

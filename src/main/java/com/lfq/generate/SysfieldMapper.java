@@ -8,7 +8,7 @@ public interface SysfieldMapper {
     int deleteByPrimaryKey(String id);
 
     int insert(Sysfield record);
-
+    List<Sysfield> selectByParentIdAndMyTables(@Param("MyColums")String MyColums,@Param("ParentId") String  ParentId);
     List<Sysfield> selectByParentId(@Param("MyColums")String MyColums,@Param("ParentId") String  ParentId);
     int insertSelective(Sysfield record);
 

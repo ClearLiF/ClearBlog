@@ -1,5 +1,6 @@
 package com.lfq.generate;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import java.util.Date;
  * @author 
  */
 public class User implements Serializable {
+    @NotNull(message = "用户ID不能为空")
     private String id;
 
     private String name;
@@ -16,17 +18,19 @@ public class User implements Serializable {
 
     private String gender;
 
-    private Date birthday;
+    private Date birthday = new Date();
 
     private String icon;
 
-    private Integer logintime;
+    private Integer logintime = 1;
 
     private String email;
-
+    //0 为下线  1为在线 2为封禁
     private Integer loginstatu;
 
     private String loaction;
+    //登录凭证
+    private String loginuuid;
 
     private static final long serialVersionUID = 1L;
 
@@ -110,6 +114,14 @@ public class User implements Serializable {
         this.loaction = loaction;
     }
 
+    public String getLoginuuid() {
+        return loginuuid;
+    }
+
+    public void setLoginuuid(String loginuuid) {
+        this.loginuuid = loginuuid;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -131,7 +143,8 @@ public class User implements Serializable {
             && (this.getLogintime() == null ? other.getLogintime() == null : this.getLogintime().equals(other.getLogintime()))
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getLoginstatu() == null ? other.getLoginstatu() == null : this.getLoginstatu().equals(other.getLoginstatu()))
-            && (this.getLoaction() == null ? other.getLoaction() == null : this.getLoaction().equals(other.getLoaction()));
+            && (this.getLoaction() == null ? other.getLoaction() == null : this.getLoaction().equals(other.getLoaction()))
+            && (this.getLoginuuid() == null ? other.getLoginuuid() == null : this.getLoginuuid().equals(other.getLoginuuid()));
     }
 
     @Override
@@ -148,6 +161,7 @@ public class User implements Serializable {
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         result = prime * result + ((getLoginstatu() == null) ? 0 : getLoginstatu().hashCode());
         result = prime * result + ((getLoaction() == null) ? 0 : getLoaction().hashCode());
+        result = prime * result + ((getLoginuuid() == null) ? 0 : getLoginuuid().hashCode());
         return result;
     }
 
@@ -167,6 +181,7 @@ public class User implements Serializable {
         sb.append(", email=").append(email);
         sb.append(", loginstatu=").append(loginstatu);
         sb.append(", loaction=").append(loaction);
+        sb.append(", loginuuid=").append(loginuuid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

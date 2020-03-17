@@ -12,15 +12,44 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="loginstatu" jdbcType="INTEGER" property="loginstatu" />
     <result column="loaction" jdbcType="VARCHAR" property="loaction" />
+    <result column="loginUUID" jdbcType="VARCHAR" property="loginuuid" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, `password`, gender, birthday, icon, logintime, email, loginstatu, loaction
+    id, `name`, `password`, gender, birthday, icon, logintime, email, loginstatu, loaction, 
+    loginUUID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserId" resultType="java.lang.String">
+    select    `name`
+    from user
+    where  name= #{name}
+  </select>
+    <select id="loginUser" resultType="com.lfq.generate.User">
+       select
+    <include refid="Base_Column_List"/>
+      from user
+      <trim prefix="where" suffixOverrides="and">
+      <if test="name!=null and name!=''">
+        `name`= #{name} and
+      </if>
+        <if test="password!=null and password!=''">
+          password= #{password} and
+        </if>
+        <if test="email!=null and email!=''">
+          email=#{email} and
+        </if>
+      </trim>
+    </select>
+  <select id="selectByUuid" resultType="com.lfq.generate.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where loginUUID=#{uuid}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user
@@ -29,12 +58,12 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.User" useGeneratedKeys="true">
     insert into user (`name`, `password`, gender, 
       birthday, icon, logintime, 
-      email, loginstatu, loaction
-      )
+      email, loginstatu, loaction, 
+      loginUUID)
     values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, 
       #{birthday,jdbcType=DATE}, #{icon,jdbcType=VARCHAR}, #{logintime,jdbcType=INTEGER}, 
-      #{email,jdbcType=VARCHAR}, #{loginstatu,jdbcType=INTEGER}, #{loaction,jdbcType=VARCHAR}
-      )
+      #{email,jdbcType=VARCHAR}, #{loginstatu,jdbcType=INTEGER}, #{loaction,jdbcType=VARCHAR}, 
+      #{loginuuid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.User" useGeneratedKeys="true">
     insert into user
@@ -66,6 +95,9 @@
       <if test="loaction != null">
         loaction,
       </if>
+      <if test="loginuuid != null">
+        loginUUID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -94,6 +126,9 @@
       </if>
       <if test="loaction != null">
         #{loaction,jdbcType=VARCHAR},
+      </if>
+      <if test="loginuuid != null">
+        #{loginuuid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -127,6 +162,9 @@
       <if test="loaction != null">
         loaction = #{loaction,jdbcType=VARCHAR},
       </if>
+      <if test="loginuuid != null">
+        loginUUID = #{loginuuid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -140,7 +178,21 @@
       logintime = #{logintime,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
       loginstatu = #{loginstatu,jdbcType=INTEGER},
-      loaction = #{loaction,jdbcType=VARCHAR}
+      loaction = #{loaction,jdbcType=VARCHAR},
+      loginUUID = #{loginuuid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateLoginStatus">
+    update user
+        set
+        loginUUID=#{uuid},
+        logintime = logintime+1
+    where id = #{userId}
+  </update>
+  <update id="updateUUidAddOne">
+    update user
+    set
+      logintime = logintime+1
+    where id = #{id}
   </update>
 </mapper>

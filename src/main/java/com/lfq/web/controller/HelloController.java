@@ -1,13 +1,11 @@
 package com.lfq.web.controller;
 
 import com.lfq.config.DirComponent;
-import com.lfq.dto.ArticleDTD;
+import com.lfq.dto.ArticleDTO;
 import com.lfq.dto.UploadResultDTO;
 import com.lfq.generate.Article;
 import com.lfq.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -65,7 +62,7 @@ public class HelloController extends DirComponent {
 
     @RequestMapping(value = "editorContent",method = RequestMethod.POST)
     @ResponseBody
-    public String  articleContent(@RequestBody ArticleDTD articleDTD){
+    public String  articleContent(@RequestBody ArticleDTO articleDTO){
 
         /*System.out.println("MD文本");
         System.out.println(article.getMarkdownContent());
@@ -77,14 +74,14 @@ public class HelloController extends DirComponent {
         mv.addObject("md",article.getMarkdownContent());
         mv.setViewName("views/blog");*/
         System.out.println("HTML文本");
-        System.out.println(articleDTD.getHtmlContent());
+        System.out.println(articleDTO.getHtmlContent());
         Article article = new Article();
         article.setAuthor("2fbbc3c5-6425-11ea-bffb-00ffc23825e9");
         article.setAuthority(1);
-        article.setTitle(articleDTD.getTitle());
-        article.setBody(articleDTD.getMarkdownContent().replaceAll(uploadDirMapper,uploadDirRealMapper));
+        article.setTitle(articleDTO.getTitle());
+        article.setBody(articleDTO.getMarkdownContent().replaceAll(uploadDirMapper,uploadDirRealMapper));
         article.setCreatetime(new Date());
-        blogService.insert(article,articleDTD.getHtmlContent());
+        blogService.insert(article, articleDTO.getHtmlContent());
 
         ModelAndView mv = new ModelAndView();
         return "Success";

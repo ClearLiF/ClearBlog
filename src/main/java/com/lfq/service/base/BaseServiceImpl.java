@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-
 /**
  * @author: 李琪
  * @date: 2020/3/8
@@ -24,7 +22,6 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     public void setSysfieldMapper(SysfieldMapper sysfieldMapper) {
         this.sysfieldMapper = sysfieldMapper;
     }
-
     @Autowired
     public void setArticlemapper(ArticleMapper articlemapper) {
         this.articlemapper = articlemapper;
@@ -34,5 +31,6 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
 
         this.usermapper = usermapper;
     }
+
 
 }

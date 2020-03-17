@@ -49,7 +49,7 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
 
     @Override
     public List<Sysfield> selectByParentId(String MyColums, String ParentId) {
-        return  sysfieldMapper.selectByParentId(MyColums,ParentId);
+        return null;
     }
 
 

@@ -18,6 +18,24 @@
     Id, MyTexts, ParentId, MyTables, MyColums, Sort, Remark, CreateTime, CreatePerson, 
     UpdateTime, UpdatePerson
   </sql>
+  <sql id="ImportantList">
+    Id,MyTexts,ParentId,MyColums, Sort
+  </sql>
+  <select id="selectByParentIdAndMyTables" resultMap="BaseResultMap">
+    select
+    <include refid="ImportantList"/>
+    from sysfield
+    <where>
+      <if test="1!=0">
+        <if test="MyColums != null and MyColums!=''">
+          MyColums=#{MyColums}
+        </if>
+        <if test="ParentId != null and ParentId!=''">
+          and ParentId=#{ParentId}
+        </if>
+      </if>
+    </where>
+  </select>
   <select id="selectByParentId" resultMap="BaseResultMap">
     select
        <include refid="Base_Column_List"/>

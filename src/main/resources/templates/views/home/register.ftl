@@ -36,6 +36,7 @@
 
 	<!-- (Optional) Latest compiled and minified JavaScript translation files -->
 	<script src="${request.contextPath}/blog/js/bootstrap-select/defaults-zh_CN.min.js"></script>
+	<script src="${request.contextPath}/js/myjs.js"></script>
 	<style>
 
 		@media screen and (max-width: 768px) {
@@ -65,19 +66,57 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right custom-menu">
-				<li ><a href="/home">主页</a></li>
-				<li class="active"><a href="#contact">注册</a></li>
-				<li><a href="blog.html">博客</a></li>
-				<li><a href="single-post.html">Single</a></li>
+				<li ><a href="/blog/home">主页</a></li>
+				<li class="active"><a href="#">注册</a></li>
+				<li><a href="/blog/toBlogHome">博客主页</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">登录或更多选项 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="/user/login">登录</a></li>
+						<li role="separator" class="divider"></li>
+						<li class="dropdown-header">联系站长</li>
+						<li><a href="#">给站长送吃的</a></li>
+						<li><a href="#">给站长吐槽</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
+<<#--div class="alert alert-danger alert-dismissable hide" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<strong>这里是错误信息</strong>
+</div>-->
+<div class="modal fade bd-example-modal-sm"  id="myModal2" role="dialog" data-backdrop="false"  aria-hidden="true">
+	<div class="modal-dialog modal-sm  ">
+		<div class="modal-content col-lg-3">
+			<p class="text-center mb-0">
+				<i class="fa fa-check-circle text-success mr-1" aria-hidden="true"></i>
+				提交失败 请联系管理员
+			</p>
+		</div>
+	</div>
+</div>
+
+<script>
+	/*$('.alert-danger').removeClass('hide').addClass('in')*/
+
+	function book(){
+		$('#myModal2').modal('show');
+		setTimeout(function(){
+			$("#myModal2").modal("hide")
+		},3000);
+	}
+</script>
+
+
 
 <div class="row" style="padding-top:80px;">
 	<div class="container ">
-		<form action="" id="defaultForm" method="post" class="form-horizontal"  role="form">
+		<form action="/user/registerSave" id="defaultForm" method="post" class="form-horizontal"  role="form">
 			<fieldset>
 				<legend>注册</legend>
 
@@ -117,7 +156,7 @@
 						<div class="col-lg-3  text-center" >
 							<select class="selectpicker form-control" name="Province" id="Province" data-style="btn-primary">
 								  <option value="">==请选择===</option>
-								</select>
+							</select>
 						</div>
 						<label class="col-lg-1 control-label">市</label>
 						<div class="col-lg-3  text-center" >
@@ -139,34 +178,34 @@
 
 
 
-			<#--	<div class="form-group">
-					                <div class="col-sm-2 text-center">
-						                   省
-						                </div>
-					                <div class="col-sm-2">
-						                    <select class="form-control" name="Province" id="Province">
-							                        <option>==请选择===</option>
-							                    </select>
+				<#--	<div class="form-group">
+                                        <div class="col-sm-2 text-center">
+                                               省
+                                            </div>
+                                        <div class="col-sm-2">
+                                                <select class="form-control" name="Province" id="Province">
+                                                        <option>==请选择===</option>
+                                                    </select>
 
 
-						                </div>
-					                <div class="col-sm-1 text-center">
-						                   市
-						                </div>
-					                <div class="col-sm-2">
-						                    <select class="form-control" name="City" id="City">
-							                        <option>==请选择===</option>
-							                    </select>
-						                </div>
-					                <div class="col-sm-1 text-center">
-						                县/区
-						                </div>
-					                <div class="col-sm-2">
-						                    <select class="form-control" name="Village" id="Village">
-							                        <option>==请选择===</option>
-							                    </select>
-						                </div>
-					            </div>-->
+                                            </div>
+                                        <div class="col-sm-1 text-center">
+                                               市
+                                            </div>
+                                        <div class="col-sm-2">
+                                                <select class="form-control" name="City" id="City">
+                                                        <option>==请选择===</option>
+                                                    </select>
+                                            </div>
+                                        <div class="col-sm-1 text-center">
+                                            县/区
+                                            </div>
+                                        <div class="col-sm-2">
+                                                <select class="form-control" name="Village" id="Village">
+                                                        <option>==请选择===</option>
+                                                    </select>
+                                            </div>
+                                    </div>-->
 
 
 
@@ -193,71 +232,105 @@
 				</div>
 				<div class="form-group">
 					<label for="dtp_input2" class="col-lg-3 control-label">生日</label>
-					<div class="input-group date form_date col-lg-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-						<input class="form-control" style="color: black" size="16" type="text" value="" readonly id="birthday">
+					<div class="input-group date form_date col-lg-5" data-date="2017-03-10T05:25:07Z" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2">
+						<input class="form-control" style="color: black" size="16" type="text" value="" id="birthday" readonly >
 						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 					</div>
-					<input type="hidden" id="dtp_input2" value="" /><br/>
+					<input type="hidden" id="dtp_input2" value="2014-08-21T22:00:00Z" /><br/>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 control-label">编程语言</label>
 					<div class="col-lg-5">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="net" /> .Net
+								<input type="checkbox" name="programs" value="net" /> .Net
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="java" /> Java
+								<input type="checkbox" name="programs" value="java" /> Java
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="c" /> C/C++
+								<input type="checkbox" name="programs" value="c" /> C/C++
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="php" /> PHP
+								<input type="checkbox" name="programs" value="php" /> PHP
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="perl" /> Perl
+								<input type="checkbox" name="programs" value="perl" /> Perl
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="ruby" /> Ruby
+								<input type="checkbox" name="programs" value="ruby" /> Ruby
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="python" /> Python
+								<input type="checkbox" name="programs" value="python" /> Python
 							</label>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="programs[]" value="javascript" /> Javascript
+								<input type="checkbox" name="programs" value="javascript" /> Javascript
 							</label>
 						</div>
 					</div>
 				</div>
 
+
 			</fieldset>
 
 			<div class="form-group">
 				<div class="col-lg-9 col-lg-offset-3">
-					<button type="submit" id="validateBtn" class="btn btn-primary" name="signup" value="Sign up">注册</button>
-					<button type="submit" id="resetBtn" class="btn btn-primary" name="signup2" value="Sign up 2">重填</button>
+					<button type="submit" id="validateBtn" class="btn btn-primary"  value="Sign up">注册</button>
+					<button type="reset" id="resetBtn" class="btn btn-primary"  value="Sign up 2">重填</button>
 				</div>
 			</div>
 		</form>
 	</div>
 </div>
 
+
+<#--验证码区域-->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="exampleModalLabel">请输入验证码</h4>
+			</div>
+			<div class="modal-body">
+				<form id="validateForm" class="form-horizontal">
+					<div class="form-group">
+						<div class="input-group" id="box2">
+							<label class="col-lg-1 control-label">验证码</label>
+							<input id="validateInput"  class="form-control" placeholder="请输入图形验证码" style="color: black" />
+							<span><canvas id="canvas" width="120" height="45"></canvas>
+				 		<a href="#" id="changeImg">看不清，换一张</a></span><br>
+							<span id="validateSpan" hidden>验证码错误</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="submit" id="validate" class="btn btn-primary">确认</button>
+					</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
 <#--class="navbar-fixed-bottom"-->
 <footer id="footer" >
 	<div class="container">
@@ -278,23 +351,77 @@
 
 <!--Jquery Smooth Scrolling-->
 <script>
-
 	$(document).ready(function() {
+		drawPic();
+
+		$("#changeImg").on('click',function (e) {
+
+			e.preventDefault();
+			drawPic();
+		});
+		/*$('#myModal').on('hidden.bs.modal', function() {
+			console.log('测试');
+			$("#validateForm").data('bootstrapValidator').destroy();
+			$('#validateForm').data('bootstrapValidator', null);
+			formValidator();
+		});*/
+		$("#validateInput").on('change',function () {
+			console.log('cdwdw');
+			$("#validate").attr("disabled", false);
+		});
+		$("#validate").on('click',function () {
+			$('#validateSpan').hide();
+			$('#validateForm').bootstrapValidator('validate');
+			var value = $('#validateInput').val().toUpperCase();
+			console.log(value+contxts);
+			//将用户输入的值转换为大写
+		 	if (value === contxts) {
+				$.ajax({
+					//几个参数需要注意一下
+					type: "POST",//方法类型
+					dataType: "json",//预期服务器返回的数据类型
+					url: "/user/registerSave" ,//url
+					data: $('#defaultForm').serialize()+'&birthday='+$('#birthday').val(),
+					success: function (result) {
+						console.log(result);//打印服务端返回的数据(调试用)
+						if (result.username ==='success') {
+							book();//弹出提交成功消息框
+							//$('#myModal').modal('hide');
+							window.location.href="/user/login";
+						}
+					},
+					error : function() {
+						book()
+						//alert("异常！");
+					}
+				});
+			}
+		 	else {
+				$('#validateSpan').css({'display': 'block'});
+			}
+
+		});
+
+	/*$.validator.addMethod("checkCode", function(value, element) { //value是从表单接收来的值
+			value = value.toUpperCase();   //将用户输入的值转换为大写
+			return this.optional(element) || (value === contxt); //将value与图形上的验证码进行比较
+		}, "请正确填写手机号码");*/
 		//地址绑定
 		//默认绑定省
 		ProviceBind();
 		//绑定事件
 		$("#Province").change( function () {
-			console.log('dwqdq');
+			//console.log($('#defaultForm').serialize());
+			//console.log($('#birthday').val());
 			CityBind();
 			//使用refresh方法更新UI以匹配新状态。
 			$('#City').selectpicker('refresh')
-			//render方法强制重新渲染引导程序 - 选择ui。
-			.selectpicker('render');
+					//render方法强制重新渲染引导程序 - 选择ui。
+					.selectpicker('render');
 			//使用refresh方法更新UI以匹配新状态。
 			$('#Village').selectpicker('refresh')
-			//render方法强制重新渲染引导程序 - 选择ui。
-			.selectpicker('render');
+					//render方法强制重新渲染引导程序 - 选择ui。
+					.selectpicker('render');
 		});
 
 		$("#City").change(function () {
@@ -302,41 +429,41 @@
 			VillageBind();
 			//使用refresh方法更新UI以匹配新状态。
 			$('#Village').selectpicker('refresh')
-			//render方法强制重新渲染引导程序 - 选择ui。
-			.selectpicker('render');
+					//render方法强制重新渲染引导程序 - 选择ui。
+					.selectpicker('render');
 		});
 
 
 		// Generate a simple captcha
 
-		$('#birthday').datetimepicker({
+		$('.form_date').datetimepicker({
 			bootcssVer:3,
 			language:  'zh-CN',
 			weekStart: 1,
 			todayBtn:  1,
-			//minView: "month",
 			autoclose: 1,
 			todayHighlight: 1,
 			startView: 2,
 			minView: 2,
 			forceParse: 0
-		}).on('changeDate', function () {
+		});/*.on('changeDate', function () {
 			$('#defaultForm')
 					.data('bootstrapValidator')
 					.updateStatus('birthday', 'NOT_VALIDATED', null)
 					.validateField('birthday');
-		});
+		});*/
 
 		// 2# 时间控件输入框添加绑定事件
-		$(document).on('changeDate', '#birthday', function () {
+		/*$(document).on('changeDate', '#birthday', function () {
 			$('#defaultForm')
 					.data('bootstrapValidator')
 					.updateStatus('birthday', 'NOT_VALIDATED', null)
 					.validateField('birthday');
-		});
+		});*/
 
 		$('#defaultForm').bootstrapValidator({
 //        live: 'disabled',
+			//container: 'tooltip',
 			message: '这个值不可用',
 			excluded : [':disabled'],
 			feedbackIcons: {
@@ -345,23 +472,34 @@
 				validating: 'glyphicon glyphicon-refresh'
 			},
 			fields: {
-
 				username: {
 					message: '这个用户名不可用',
 					validators: {
 						notEmpty: {
-							message: 'The username is required and cannot be empty'
+							message: '用户名不能为空'
+						},
+						regexp: {
+							regexp: /^[a-zA-Z0-9_\u4E00-\u9FA5]*$/,
+							message: '名字只能由字母字符和中文和数字组成'
 						},
 						stringLength: {
 							min: 6,
 							max: 30,
 							message: '用户名小于 6 或者 大于30个字符'
 						},
-						/*remote: {
+						threshold: 6,
+						remote: {
+							message: '用户名已存在,请重新输入',
+							delay: 1000,//ajax刷新的时间是1秒一次
 							type: 'POST',
-							url: 'remote.php',
-							message: 'The username is not available'
-						},*/
+							url: '/user/checkUserName',
+							data: function(validator) {
+								return {
+									userName : $.trim($("input[name=userName]").val())
+								};
+							}
+
+						},
 						different: {
 							field: 'password,confirmPassword',
 							message: '用户名不能和密码一样'
@@ -387,6 +525,11 @@
 						identical: {
 							field: 'confirmPassword',
 							message: '密码和确认密码不相同'
+						},
+						stringLength: {
+							min: 6,
+							max: 30,
+							message: '密码不得少于6位'
 						},
 						different: {
 							field: 'username',
@@ -430,7 +573,7 @@
 							}
 
 						}}
-						},
+				},
 				Village:{
 					validators:{
 						notEmpty: {
@@ -457,23 +600,7 @@
 
 						}}
 				},
-				birthday: {
-					trigger: 'changeDate',
-					validators: {
-						notEmpty: {
-							message: '生日不能为空'
-						},callback: {
-						message: '生日不能为空',
-						callback: function (value, validator) {
-
-							return value !== "";
-						}
-
-					}
-
-					}
-				},
-				'programs[]': {
+				'programs': {
 					validators: {
 						choice: {
 							min: 1,
@@ -484,12 +611,34 @@
 				},
 
 			}
+		}).on('success.form.bv', function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target);
+			// Get the BootstrapValidator instance
+			var bv = $form.data('bootstrapValidator');
+			// Use Ajax to submit form data
+			 $('#myModal').modal('show');
+			/*$.post($form.attr('action'), $form.serialize(), function(result) {
+				if (result.username ==='success') {
+					alert("SUCCESS");
+
+					//$('#myModal').modal('hide');
+				}
+			}, 'json');*/
 		});
 
 		// Validate the form manually
-		$('#validateBtn').click(function() {
+	/*	$('#validateBtn').on('click',function () {
 			$('#defaultForm').bootstrapValidator('validate');
-		});
+
+
+			$('#myModal').modal('show');
+		});*/
+
+
+
 
 		$('#resetBtn').click(function() {
 			$('#defaultForm').data('bootstrapValidator').resetForm(true);
@@ -512,7 +661,7 @@
 		var str = "<option style='color:red;' value=''>==请选择===</option>";
 		$.ajax({
 			type: "POST",
-			url: "/getAddress",
+			url: "/user/getAddress",
 			data: { "parentiD": "", "MyColums": "Province" },
 			dataType: "JSON",
 			async: false,
@@ -544,7 +693,7 @@
 
 		$.ajax({
 			type: "POST",
-			url: "/getAddress",
+			url: "/user/getAddress",
 			data: { "parentiD": provice, "MyColums": "City" },
 			dataType: "JSON",
 			async: false,
@@ -573,7 +722,7 @@
 		//将市的ID拿到数据库进行查询，查询出他的下级进行绑定
 		$.ajax({
 			type: "POST",
-			url: "/getAddress",
+			url: "/user/getAddress",
 			data: { "parentiD": provice, "MyColums": "Village" },
 			dataType: "JSON",
 			async: false,

@@ -11,20 +11,44 @@
     <result column="statu" jdbcType="INTEGER" property="statu" />
     <result column="views" jdbcType="BIGINT" property="views" />
     <result column="like_count" jdbcType="BIGINT" property="likeCount" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, author, createtime, title, body, authority, statu, views, like_count
+    id, author, createtime, title, body, authority, statu, views, like_count, icon
   </sql>
+  <sql id="Base_Column_List2">
+    article.id, article.author, article.createtime, article.title,
+article.authority, article.statu, article.views,
+article.like_count, article.icon
+,`user`.name
+  </sql>
+  <resultMap id="BaseResultMap2" type="com.lfq.generate.Article">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="authority" jdbcType="INTEGER" property="authority" />
+    <result column="statu" jdbcType="INTEGER" property="statu" />
+    <result column="views" jdbcType="BIGINT" property="views" />
+    <result column="like_count" jdbcType="BIGINT" property="likeCount" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <association property="user" javaType="com.lfq.generate.User">
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from article
     where id = #{id,jdbcType=VARCHAR}
+
   </select>
-    <select id="selectPageArticle" resultType="com.lfq.generate.Article">
+    <select id="selectPageArticle" resultMap="BaseResultMap2">
         select
-    <include refid="Base_Column_List"/>
-      from article
+    <include refid="Base_Column_List2"/>
+      from article,`user`
+        where `user`.id=article.author
+      ORDER BY article.createtime desc
         limit #{begin},#{size}
     </select>
   <select id="countArticle" resultType="java.lang.Integer">
@@ -39,10 +63,12 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Article" useGeneratedKeys="true">
     insert into article (author, createtime, title, 
       body, authority, statu, 
-      views, like_count)
+      views, like_count, icon
+      )
     values (#{author,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, #{title,jdbcType=VARCHAR}, 
       #{body,jdbcType=VARCHAR}, #{authority,jdbcType=INTEGER}, #{statu,jdbcType=INTEGER}, 
-      #{views,jdbcType=BIGINT}, #{likeCount,jdbcType=BIGINT})
+      #{views,jdbcType=BIGINT}, #{likeCount,jdbcType=BIGINT}, #{icon,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Article" useGeneratedKeys="true">
     insert into article
@@ -71,6 +97,9 @@
       <if test="likeCount != null">
         like_count,
       </if>
+      <if test="icon != null">
+        icon,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="author != null">
@@ -96,6 +125,9 @@
       </if>
       <if test="likeCount != null">
         #{likeCount,jdbcType=BIGINT},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -126,6 +158,9 @@
       <if test="likeCount != null">
         like_count = #{likeCount,jdbcType=BIGINT},
       </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -138,7 +173,8 @@
       authority = #{authority,jdbcType=INTEGER},
       statu = #{statu,jdbcType=INTEGER},
       views = #{views,jdbcType=BIGINT},
-      like_count = #{likeCount,jdbcType=BIGINT}
+      like_count = #{likeCount,jdbcType=BIGINT},
+      icon = #{icon,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

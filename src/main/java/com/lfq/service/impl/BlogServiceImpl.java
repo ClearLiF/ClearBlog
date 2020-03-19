@@ -1,9 +1,11 @@
 package com.lfq.service.impl;
 
+import com.lfq.config.DirComponent;
 import com.lfq.generate.Sysfield;
 import com.lfq.service.BlogService;
 import com.lfq.service.base.BaseServiceImpl;
 import com.lfq.generate.Article;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +22,15 @@ import java.util.regex.Pattern;
  * @description 一般类
  */
 @Service
+@Slf4j
 @Transactional
 public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogService {
     @Value("${uploadDir}")
     private String uploadDir;
     @Value("${uploadDirReal}")
     private String uploadDirReal;
+    @Value("${uploadDirRealMapper}")
+    protected String uploadDirRealMapper;
     @Override
     public int deleteByPrimaryKey(String id) {
         return 0;
@@ -42,8 +47,12 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
          List<String> list = getMatchString("<img.*?>", html, false);
         if (list.size()!=0){
             status=replacePhoto(list);
+            record.setIcon(uploadDirRealMapper+list.get(0));
+        }else {
+            record.setIcon(uploadDirRealMapper+"clear.png");
         }
         articlemapper.insertSelective(record);
+
         return status;
     }
 
@@ -84,9 +93,8 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
     private int replacePhoto(List<String > list){
         int status=0;
         for (String s : list) {
-            System.out.println("处理的东西"+uploadDir+s);
+            log.info("处理的东西"+uploadDir+s);
             File file = new File(uploadDir + s);
-            System.out.println(file);
             status= replacePhoto(file);
         }
            /* File startFiles=new File(uploadDir);
@@ -109,9 +117,9 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
         File endFile=new File(endDirection+ File.separator+ startFile.getName());
         try {
             if (startFile.renameTo(endFile)) {
-                System.out.println("文件移动正常"+startFile.getAbsolutePath());
+                log.info("文件移动正常"+startFile.getAbsolutePath());
             }else {
-                System.out.println("不正常"+startFile.getAbsolutePath());
+                log.error("文件移动不正行"+startFile.getAbsolutePath());
             }
         }catch(Exception e) {
             // System.out.println("文件移动出现异常！起始路径：{"+startFile.getAbsolutePath()+"}");

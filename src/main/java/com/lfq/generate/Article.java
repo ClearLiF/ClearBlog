@@ -26,6 +26,17 @@ public class Article implements Serializable {
 
     private Long likeCount;
 
+    private String icon;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public String getId() {
@@ -100,6 +111,14 @@ public class Article implements Serializable {
         this.likeCount = likeCount;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -120,7 +139,8 @@ public class Article implements Serializable {
             && (this.getAuthority() == null ? other.getAuthority() == null : this.getAuthority().equals(other.getAuthority()))
             && (this.getStatu() == null ? other.getStatu() == null : this.getStatu().equals(other.getStatu()))
             && (this.getViews() == null ? other.getViews() == null : this.getViews().equals(other.getViews()))
-            && (this.getLikeCount() == null ? other.getLikeCount() == null : this.getLikeCount().equals(other.getLikeCount()));
+            && (this.getLikeCount() == null ? other.getLikeCount() == null : this.getLikeCount().equals(other.getLikeCount()))
+            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()));
     }
 
     @Override
@@ -136,6 +156,7 @@ public class Article implements Serializable {
         result = prime * result + ((getStatu() == null) ? 0 : getStatu().hashCode());
         result = prime * result + ((getViews() == null) ? 0 : getViews().hashCode());
         result = prime * result + ((getLikeCount() == null) ? 0 : getLikeCount().hashCode());
+        result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
         return result;
     }
 
@@ -154,6 +175,7 @@ public class Article implements Serializable {
         sb.append(", statu=").append(statu);
         sb.append(", views=").append(views);
         sb.append(", likeCount=").append(likeCount);
+        sb.append(", icon=").append(icon);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -11,6 +11,7 @@
         <title>PATROS - HTML5 FREE TEMPLATE</title>
 
 		<link href="${request.contextPath}/blog/css/bootstrap.min.css" rel="stylesheet">
+		<link href="${request.contextPath}/blog/css/mycss.css" rel="stylesheet">
 		<!-- Custom Fonts -->
 		<link href="${request.contextPath}/blog/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<!-- Custom CSS -->
@@ -19,7 +20,12 @@
 		<link rel="stylesheet" href="${request.contextPath}/blog/css/bootstrap-datetimepicker.min.css">
 		<link rel="stylesheet" href="${request.contextPath}/blog/css/bootstrapValidator.css"/>
 		<link rel="stylesheet" href="${request.contextPath}/blog/css/bootstrap-select.min.css">
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--树形结构主要样式-->
+		<link rel="stylesheet" type="text/css" href="${request.contextPath}/blog/css/style.css" />
+		<#--分页-->
+	<#--	<link href="${request.contextPath}/blog/css/bootstrap-combined.min.css" rel="stylesheet">
+	-->	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +41,7 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container ">
-				<div class="navbar-header">
+				<div class="navbar-header ">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -50,8 +56,10 @@
 						<li><a href="/user/register">注册</a></li>
 						<li class="active"><a href="/blog/toBlogHome">博客</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">联系站长 <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<#if user=='null'>登录<#else>个人中心</#if> <span class="caret"></span></a>
 							<ul class="dropdown-menu">
+								<li><a href="<#if user=='null'>/user/login<#else>/user/myself</#if> "><#if user=='null'>登录<#else>个人中心</#if> </a></li>
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">联系站长</li>
 								<li><a href="#">给站长送吃的</a></li>
@@ -65,14 +73,14 @@
 		</nav>
 		<#--提示信息-->
 		<div class="modal fade" tabindex="-1" role="dialog" id="myModal2">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Modal title</h4>
+						<h4 class="modal-title">欢迎</h4>
 					</div>
-					<div class="modal-body">
-						<p>One fine body&hellip;</p>
+					<div class="modal-body ">
+						<p style="color: black"><#if user=='null'>您还没登录，点击右上角登录<#else>欢迎${user.name!"默认"}用户</#if></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -84,14 +92,16 @@
 
 		<!-- Page Content -->
 		<section class="container blog">
-			<div class="row">
+			<div class="row ">
 		        <!-- Blog Column -->
-		        <div class="col-md-8">
-		            <h1 class="page-header sidebar-title">
-		                Company Blog
+		        <div class="col-md-8" id="bloghomes">
+		            <h1 id="begin" class="page-header sidebar-title">
+		                博客主页
 		            </h1>
-		            <!-- First Blog Post -->
-		            <div class="row blogu">
+
+			<#--		<hr>
+		            <!-- First Blog Post &ndash;&gt;
+		            <div class="row clear">
 		                <div class="col-sm-4 col-md-4 ">
 		                    <div class="blog-thumb">
 		                        <a href="#">
@@ -111,8 +121,8 @@
 		                </div>
 		            </div>
 		            <hr>
-		            <!-- Second Blog Post -->
-		            <div class="row">
+		            <!-- Second Blog Post &ndash;&gt;
+		            <div class="row clear">
 		                <div class="col-sm-4 col-md-4">
 		                    <div class="blog-thumb">
 		                        <a href="#">
@@ -130,106 +140,24 @@
 		                    </p>
 		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
 		                </div>
-		            </div>
-		            <hr>
-		            <!-- Third Blog Post -->
-		            <div class="row">
-		                <div class="col-sm-4 col-md-4">
-		                    <div class="blog-thumb">
-		                        <a href="#">
-		                        <img class="img-responsive" src="images/blog-photo3.jpg" alt="photo">
-		                        </a>
-		                    </div>
-		                </div>
-		                <div class="col-sm-8 col-md-8">
-		                    <h2 class="blog-title">
-		                        <a href="#">Post title 3</a>
-		                    </h2>
-		                    <p><i class="fa fa-calendar-o"></i>  August 28, 2013 
-		                        <span class="comments-padding"></span>
-		                        <i class="fa fa-comment"></i> 1 comment
-		                    </p>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-		                </div>
-		            </div>
-		            <hr>
-		            <!-- Fourth Blog Post -->
-		            <div class="row">
-		                <div class="col-sm-4 col-md-4">
-		                    <div class="blog-thumb">
-		                        <a href="#">
-		                            <img class="img-responsive" src="images/blog-photo1.jpg" alt="photo">
-		                        </a>
-		                    </div>
-		                </div>
-		                <div class="col-sm-8 col-md-8">
-		                    <h2 class="blog-title">
-		                        <a href="#">Post title 4</a>
-		                    </h2>
-		                    <p><i class="fa fa-calendar-o"></i> August 28, 2013 
-		                       <span class="comments-padding"></span>
-		                       <i class="fa fa-comment"></i> 3 comments
-		                    </p>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-		                </div>
-		            </div>
+		            </div>-->
 
-		             <hr>
-		            <!-- Fifth Blog Post -->
-		            <div class="row">
-		                <div class="col-sm-4 col-md-4">
-		                    <div class="blog-thumb">
-		                        <a href="#">
-		                            <img class="img-responsive" src="images/blog-photo2.jpg" alt="photo">
-		                        </a>
-		                    </div>
-		                </div>
-		                <div class="col-sm-8 col-md-8">
-		                    <h2 class="blog-title">
-		                        <a href="#">Post title 5</a>
-		                    </h2>
-		                    <p><i class="fa fa-calendar-o"></i> August 28, 2013 
-		                       <span class="comments-padding"></span>
-		                       <i class="fa fa-comment"></i> 3 comments
-		                    </p>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-		                </div>
-		            </div>
 
-		             <hr>
-		            <!-- Six Blog Post -->
-		            <div class="row">
-		                <div class="col-sm-4 col-md-4">
-		                    <div class="blog-thumb">
-		                        <a href="#">
-		                            <img class="img-responsive" src="images/blog-photo3.jpg" alt="photo">
-		                        </a>
-		                    </div>
-		                </div>
-		                <div class="col-sm-8 col-md-8">
-		                    <h2 class="blog-title">
-		                        <a href="#">Post title 6</a>
-		                    </h2>
-		                    <p><i class="fa fa-calendar-o"></i> August 28, 2013 
-		                       <span class="comments-padding"></span>
-		                       <i class="fa fa-comment"></i> 3 comments
-		                    </p>
-		                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-		                </div>
-		            </div>
 		            
 
-
+					<#--分页位置-->
 		            <hr>
-		            <div class="text-center"> 
-		                <ul class="pagination"> 
-		                    <li class="active"> <a href="#">1</a> </li> 
-		                    <li> <a href="#">2</a> </li> 
-		                    <li> <a href="#">3</a> </li> 
-		                    <li> <a href="#">4</a> </li> 
-		                    <li> <a href="#">5</a> </li> 
-		                    <li> <a href="#">Next</a> </li> 
-		                </ul> 
+					<div id="pageaction" class="pagination" >
+
+		             <ul id="pageaction" class="pagination">
+						 <li> <a href="#">Next</a> </li>
+						 <li class="active"> <a href="#">1</a> </li>
+		                    <li> <a href="#">2</a> </li>
+		                    <li> <a href="#">3</a> </li>
+		                    <li> <a href="#">4</a> </li>
+		                    <li> <a href="#">5</a> </li>
+		                    <li> <a href="#">Next</a> </li>
+					 </ul>
 		            </div>
 		        </div>
 		            <!-- Blog Sidebar Column -->
@@ -238,22 +166,45 @@
 		                    <div class="input-group searchbar">
 		                        <input type="text" class="form-control searchbar" placeholder="Search for...">
 		                        <span class="input-group-btn">
-		                        <button class="btn btn-default" type="button">Search</button>
+		                        <button class="btn btn-default" type="button">查找</button>
 		                        </span>
 		                    </div><!-- /input-group -->
 		                </div>
 		                <!-- Blog Categories -->
-		                <div class="blog-sidebar">
-		                    <h4 class="sidebar-title"><i class="fa fa-list-ul"></i> Categories</h4>
+		                <div class="">
+		                    <h4 class="sidebar-title"><i class="fa fa-list-ul"></i> 分类</h4>
 		                    <hr>
-		                    <ul class="sidebar-list">
-		                        <li><a href="#">Applications</a></li>
-		                        <li><a href="#">Photography</a></li>
-		                        <li><a href="#">Art Design</a></li>
-		                        <li><a href="#">Graphic Design</a></li>
-		                        <li><a href="#">Category Name</a></li>
-		                    </ul>
-		                </div>
+							<#--设置菜单-->
+							<div class="tree well">
+								<ul>
+									<li>
+										<span><i class="icon-folder-open"></i> 点此展开</span> <a href="">展开</a>
+										<ul>
+								<#if sort??>
+									<#list sort as values>
+										<li>
+											<span><i class="icon-minus-sign"></i> ${values.name}</span> <a href=""></a>
+											<ul>
+												<#list values.sorts as sorts>
+													<li>
+														<a href=""><span><i class="icon-leaf"></i> ${sorts.name}</span></a>
+													</li>
+												</#list>
+											</ul>
+										</li>
+
+									</#list>
+
+								</#if>
+										</ul>
+									</li>
+								</ul>
+
+
+
+							</div>
+
+						</div>
 		                <!-- Recent Posts -->
 		                <div class="blog-sidebar">
 		                    <h4 class="sidebar-title"><i class="fa fa-align-left"></i> Recent Posts</h4>
@@ -343,21 +294,239 @@
 
 		<!-- (Optional) Latest compiled and minified JavaScript translation files -->
 		<script src="${request.contextPath}/blog/js/bootstrap-select/defaults-zh_CN.min.js"></script>
-
+		<script src="${request.contextPath}/blog/js/bootstrap-paginator.min.js"></script>
 
 		<!--Jquery Smooth Scrolling-->
         <script>
+			var DATA ;
+			var pageSizeNum = 7;
+			function toPage(num){
+				$.ajax({
+					url:'${request.contextPath}/page/listblog/'+num,
+					type:'POST',
+					data:{
+						'pageNum':num,        //第几页
+					},
+					success:function(data){
+						//console.log(data);
+						DATA=data;
+						$(".clear").empty();
+						$("#myhr").hide();
+						console.log($("#myhr"));;
+						$.each(data.rows,function (key,value) {
+
+							addhtml(value);
+						});
+						initPage();
+						//$("#bloghomes").append(data);
+					}
+				});}
+			//查看当前页的分组
+			function searchGroup(current,pageSize) {
+				//var current = DATA.currentPage;
+				//var pageSize = DATA.pageSize;
+				return Math.ceil(current/pageSize);
+
+			}
+			//总分组
+			function allGroup(pageSize) {
+				return Math.ceil(pageSize/pageSizeNum);
+
+			}
+
+			function addhtml(value){
+				var html = [];
+				/*<div class="clear" style="width:1000px;height:1px;border-top:solid rgb(0,0,0) 1px;"></div>*/
+				html.push('  <div class="clear"><hr class="clear"></div> <div class="row clear">' +
+						'               <div class="col-sm-4 col-md-4 ">' +
+						'                   <div class="blog-thumb">' +
+						'                       <a href="#">' +
+						'                           <img class="img-responsive" src="'+value.icon+'" alt="photo">\n' +
+						'                       </a>' +
+						'                    </div>' +
+						'               </div>' +
+						'               <div class="col-sm-8 col-md-8">' +
+						'                   <h2 class="blog-title" style="font-size: 20px">' +
+						'                        <a href="#">'+value.title+'</a>&nbsp;&nbsp;<span class="glyphicon glyphicon-tags"  aria-hidden="true">后端模块</span>' +
+						'                   </h2>\n' +
+						'                   <p><i class="fa fa-calendar-o"></i>  '+dateFormat(value.createtime)+' \n' +
+						'                       <span class="comments-padding"></span>' +
+						'                       <i class="fa fa-comment"></i> 0 comments' +
+						'                   </p>' +
+						'                    <p>作者:'+value.user.name+'</p>' +
+						'               </div>' +
+						'            </div>' +
+						'           ');
+				html = html.join('');
+				$("#begin").append(html)
+			}
+			function dateFormat(longTypeDate){
+				var dateTypeDate = "";
+				var date = new Date();
+				date.setTime(longTypeDate);
+				dateTypeDate += date.getFullYear(); //年
+				dateTypeDate += "-" + getMonth(date); //月
+				dateTypeDate += "-" + getDay(date); //日
+				return dateTypeDate;
+			}
+			function getMonth(date){
+				var month = "";
+				month = date.getMonth() + 1; //getMonth()得到的月份是0-11
+				if(month<10){
+					month = "0" + month;
+				}
+				return month;
+			}
+			//返回01-30的日期
+			function getDay(date){
+				var day = "";
+				day = date.getDate();
+				if(day<10){
+					day = "0" + day;
+				}
+				return day;
+			}
+			function initPage() {
+				$('#pageaction').empty();
+				var html = [];
+				var nowGroup = searchGroup(DATA.currentPage,pageSizeNum);
+				console.log(nowGroup);
+				if (nowGroup-1!==0){
+					html.push(' <li> <a href="javascript:pagebar2(0);">前一页</a> </li>\n');
+				}
+				//123[1组]   456[2组]
+				if (nowGroup*pageSizeNum<=DATA.totalPages){
+					for (let i = nowGroup*pageSizeNum-pageSizeNum+1; i <=nowGroup*pageSizeNum+1 ; i++) {
+						if (i===DATA.currentPage){
+							html.push(' <li class="active"> <a href="javascript:toPage('+i+');">'+i+'</a> </li>\n');
+						}else {
+							html.push(' <li> <a href="javascript:toPage('+i+');">'+i+'</a> </li>\n');
+						}
+					}
+				}else {
+					for (let i = nowGroup*pageSizeNum-pageSizeNum+1; i <= DATA.totalPages; i++) {
+						if (i===DATA.currentPage){
+							html.push(' <li class="active"> <a href="javascript:toPage('+i+');">'+i+'</a> </li>\n');
+						}else {
+							html.push(' <li> <a href="javascript:toPage('+i+');">'+i+'</a> </li>\n');
+
+						}
+					}
+				}
+				console.log(nowGroup+'  '+allGroup(DATA.totalPages));
+				if (nowGroup+1<=allGroup(DATA.totalPages)){
+					html.push(' <li> <a href="javascript:pagebar2(1);">后一页</a> </li>\n');
+
+				}
+				//html.push(' <li> <a href="#">Next</a> </li>\n')
+				html = html.join('');
+				$("#pageaction").append(html);
+			}
+			function pagebar2(type) {
+				$('#pageaction').empty();
+				var nowGroup = searchGroup(DATA.currentPage,pageSizeNum);
+				//var allGroup =Math.ceil(DATA.totalPages/pageSizeNum);
+				if (type===0){
+					toPage(DATA.currentPage-pageSizeNum);
+				}else {
+					toPage(nowGroup*pageSizeNum+1);
+				}
+			}
+			//已过时
+			function pagebar(type) {
+				var html =[];
+				$('#pageaction').empty();
+
+				var nowGroup = searchGroup(DATA.currentPage,pageSizeNum);
+				console.log(nowGroup);
+				if (type===0){
+					nowGroup=nowGroup-1;
+					if (nowGroup-1!==0){
+						html.push(' <li> <a href="javascript:pagebar(0);">前一页</a> </li>\n');
+					}
+					//123[1组]   456[2组]
+					if (nowGroup*pageSizeNum<=DATA.totalPages){
+						for (let i = nowGroup*pageSizeNum-pageSizeNum+1; i <nowGroup*pageSizeNum+1 ; i++) {
+							if (i===DATA.currentPage-pageSizeNum){
+								html.push(' <li class="active"> <a href="javascript:toPage('+i+')">'+i+'</a> </li>\n');
+								toPage(i);
+							}else {
+								html.push(' <li> <a href="javascript:toPage('+i+')">'+i+'</a> </li>\n');
+							}
+						}
+					}/*else {
+						for (let i = nowGroup*pageSizeNum-pageSizeNum+1; i < DATA.totalPages; i++) {
+							if (i===DATA.currentPage){
+								html.push(' <li class="active"> <a href="javascript:toPage('+i+')">'+i+'</a> </li>\n');
+								toPage(i);
+							}else {
+								html.push(' <li> <a href="javascript:toPage('+i+')">'+i+'</a> </li>\n');
+							}
+
+						}
+					}*/
+					//if (nowGroup+2!==allGroup(DATA.totalPages)){
+					html.push(' <li> <a href="javascript:pagebar(1);">后一页</a> </li>\n');
+
+				}else if(type===1){
+					//DATA.currentPage=DATA.currentPage+pageSizeNum;
+					/*	if (nowGroup-2!==0){*/
+
+					//nowGroup=nowGroup+1;
+					html.push(' <li> <a href="#">前一页</a> </li>\n');
+
+					//123[1组]   456[2组]
+					if (nowGroup*pageSizeNum+pageSizeNum<=DATA.totalPages){
+						for (let i = nowGroup*pageSizeNum-pageSizeNum+1; i <nowGroup*pageSizeNum+1 ; i++) {
+							if (i===DATA.currentPage-pageSizeNum){
+								html.push(' <li class="active"> <a href="javascript:toPage('+i+')">'+i+'</a> </li>\n');
+								toPage(i);
+							}else {
+								html.push(' <li> <a href="javascript:toPage('+i+')">'+i+'</a> </li>\n');
+							}
+						}
+					}else {
+						for (let i = nowGroup*pageSizeNum-pageSizeNum+1; i < DATA.totalPages; i++) {
+							html.push(' <li> <a href="#">'+i+'</a> </li>\n');
+						}
+					}
+					if (nowGroup+2!==allGroup(DATA.totalPages)){
+						html.push(' <li> <a href="javascript:pagebar(1);">后一页</a> </li>\n');
+					}
+				}
+				html = html.join('');
+				$("#pageaction").append(html);
+			}
             $(document).ready(function(){
 
-				$('#myModal2').modal('show');
-               
+            	/*
 
-               $(".nav a").on("click", function(){
+            	$('.modal-body').empty();
+
+				console.log($('.modal-title').innerHTML);*/
+
+				toPage(1);
+				$('#myModal2').modal('show');
+				//123456下一页
+
+
+				//跳转第几页
+
+					//改变页码按钮
+
+
+				function onclickPage(num) {
+
+
+
+				}
+
+				$(".nav a").on("click", function(){
                      $(".nav").find(".active").removeClass("active");
                     $(this).parent().addClass("active");
             	});
 
-                $('body').append('<div id="toTop" class="btn btn-primary color1"><span class="glyphicon glyphicon-chevron-up"></span></div>');
+                $('body').append('<div id="toTop" class="btn btn-primary color1"><span class="glyphicon glyphicon-chevron-up">返回顶部</span></div>');
                     $(window).scroll(function () {
                         if ($(this).scrollTop() != 0) {
                             $('#toTop').fadeIn();
@@ -370,6 +539,18 @@
                     return false;
                 });
 
+				$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+				$('.tree li.parent_li > span').on('click', function (e) {
+					var children = $(this).parent('li.parent_li').find(' > ul > li');
+					if (children.is(":visible")) {
+						children.hide('fast');
+						$(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+					} else {
+						children.show('fast');
+						$(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+					}
+					e.stopPropagation();
+				});
             });
         </script>
 

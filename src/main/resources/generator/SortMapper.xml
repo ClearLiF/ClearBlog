@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfq.generate.SortMapper">
+  <resultMap id="BaseResultMap" type="com.lfq.generate.Sort">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="parents_id" jdbcType="VARCHAR" property="parentsId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="aliens" jdbcType="VARCHAR" property="aliens" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parents_id, `name`, aliens, description, url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sort
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <resultMap id="sortByForeign" type="com.lfq.generate.Sort">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <!--<result column="parents_id" jdbcType="VARCHAR" property="parentsId" />-->
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="aliens" jdbcType="VARCHAR" property="aliens" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <collection property="sorts" ofType="com.lfq.generate.Sort">
+      <id column="sort2_id" jdbcType="VARCHAR" property="id" />
+<!--
+      <result column="sort2_parents_id" jdbcType="VARCHAR" property="parentsId" />
+-->
+      <result column="sort2_name" jdbcType="VARCHAR" property="name" />
+      <result column="sort2_aliens" jdbcType="VARCHAR" property="aliens" />
+      <result column="sort2_description" jdbcType="VARCHAR" property="description" />
+      <result column="sort2_url" jdbcType="VARCHAR" property="url" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List2">
+    sort1.id,  sort1.`name`, sort1.aliens, sort1.description, sort1.url,sort2.id sort2_id,
+ sort2.`name` sort2_name, sort2.aliens sort2_aliens, sort2.description sort2_description, sort2.url sort2_url
+ </sql>
+    <select id="selectAllByForeignKey" resultMap="sortByForeign">
+        select
+        <include refid="Base_Column_List2"/>
+        FROM Sort sort1, Sort sort2
+        where sort1.id=sort2.parents_id
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sort
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Sort" useGeneratedKeys="true">
+    insert into sort (parents_id, `name`, aliens, 
+      description, url)
+    values (#{parentsId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{aliens,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Sort" useGeneratedKeys="true">
+    insert into sort
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentsId != null">
+        parents_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="aliens != null">
+        aliens,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentsId != null">
+        #{parentsId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="aliens != null">
+        #{aliens,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lfq.generate.Sort">
+    update sort
+    <set>
+      <if test="parentsId != null">
+        parents_id = #{parentsId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="aliens != null">
+        aliens = #{aliens,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lfq.generate.Sort">
+    update sort
+    set parents_id = #{parentsId,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      aliens = #{aliens,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

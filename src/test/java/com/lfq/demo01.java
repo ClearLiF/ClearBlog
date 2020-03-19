@@ -1,8 +1,10 @@
 package com.lfq;
 
 import com.lfq.generate.Article;
+import com.lfq.generate.Sort;
 import com.lfq.generate.User;
 import com.lfq.service.BlogService;
+import com.lfq.service.SortService;
 import com.lfq.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: 李琪
@@ -27,6 +30,9 @@ public class demo01   {
     private UserService userService ;
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private SortService sortService;
+
     @Test
     public void test1(){
         log.info("测试");
@@ -68,6 +74,15 @@ public class demo01   {
     @Test
     public void test6(){
         System.out.println(userService.loginUser("", "111111","l18512863192@gmail.com"));
+    }
+    @Test
+    public void test7(){
+        List<Sort> sorts = sortService.selectAllByForeignKey();
+        for (Sort sort : sorts) {
+            System.out.println(sort);
+            System.out.println("分割线-----------------------");
+            System.out.println(sort.getSorts().size());
+        }
     }
 
 }

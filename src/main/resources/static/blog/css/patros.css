@@ -114,6 +114,7 @@ footer { background-color: #1E1E1E; width:100%; display:block; color:#f7f7f7; }
 .list-social-icons li:hover .social-icons {color:#f7f7f7;}
 .list-social-icons li:active .social-icons {background:#E96840;}
 .blog{padding-top:70px;}
+.clear{}
 .sidebar-padding{padding-top: 20px;}
 .blog-title{margin-top: 0;}
 .blog-title a{color:#E96840; -webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s;}

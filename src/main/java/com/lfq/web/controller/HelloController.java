@@ -50,7 +50,7 @@ public class HelloController extends DirComponent {
             file.transferTo(new File(uploadDir + dest));
             resultDTO.setSuccess(1);
             resultDTO.setMessage("图片上传成功！");
-            resultDTO.setUrl("/uploadTmp/" + dest);
+            resultDTO.setUrl(uploadDirMapper + dest);
             System.out.println("成功");
         } catch (IOException e) {
             resultDTO.setSuccess(0);
@@ -85,9 +85,7 @@ public class HelloController extends DirComponent {
 
         ModelAndView mv = new ModelAndView();
         return "Success";
-      /*  mv.addObject("html",articleDTD.getHtmlContent());
-        mv.addObject("md",articleDTD.getMarkdownContent());
-        return  mv;*/
+
     }
     @RequestMapping("return")
     public ModelAndView returnView(Model model){

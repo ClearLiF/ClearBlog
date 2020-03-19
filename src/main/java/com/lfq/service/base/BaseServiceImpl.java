@@ -1,6 +1,7 @@
 package com.lfq.service.base;
 
 import com.lfq.generate.ArticleMapper;
+import com.lfq.generate.SortArticleMapper;
 import com.lfq.generate.SysfieldMapper;
 import com.lfq.generate.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     protected ArticleMapper articlemapper;
     protected SysfieldMapper sysfieldMapper;
     protected UserMapper usermapper;
+    protected SortArticleMapper sortArticleMapper;
+    @Autowired
+    public void setSortArticleMapper(SortArticleMapper sortArticleMapper) {
+        this.sortArticleMapper = sortArticleMapper;
+    }
+
     @Autowired
     public void setSysfieldMapper(SysfieldMapper sysfieldMapper) {
         this.sysfieldMapper = sysfieldMapper;

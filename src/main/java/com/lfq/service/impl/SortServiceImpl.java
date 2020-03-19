@@ -1,6 +1,7 @@
 package com.lfq.service.impl;
 
 import com.lfq.generate.Sort;
+import com.lfq.generate.SortArticleMapper;
 import com.lfq.generate.SortMapper;
 import com.lfq.service.SortService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,6 @@ public class SortServiceImpl implements SortService {
     public void setSortMapper(SortMapper sortMapper) {
         this.sortMapper = sortMapper;
     }
-
     @Override
     public int deleteByPrimaryKey(String id) {
         return 0;

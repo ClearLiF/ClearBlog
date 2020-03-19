@@ -1,6 +1,7 @@
 package com.lfq.service.impl;
 
 import com.lfq.config.DirComponent;
+import com.lfq.dto.ArticleDTO;
 import com.lfq.generate.Sysfield;
 import com.lfq.service.BlogService;
 import com.lfq.service.base.BaseServiceImpl;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +33,8 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
     private String uploadDirReal;
     @Value("${uploadDirRealMapper}")
     protected String uploadDirRealMapper;
+    @Value("${uploadDirMapper}")
+    protected String uploadDirMapper;
     @Override
     public int deleteByPrimaryKey(String id) {
         return 0;
@@ -38,21 +42,37 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
 
     @Override
     public int insert(Article record) {
-
         articlemapper.insertSelective(record);
         return 0;
     }
-    public int insert(Article record,String html) {
-       int status=0;
-         List<String> list = getMatchString("<img.*?>", html, false);
+    public int insert(ArticleDTO record, String html) {
+        int status=0;
+        Article article = new Article();
+        article.setAuthor(record.getUserId());
+        article.setAuthority(1);
+        article.setTitle(record.getTitle());
+        article.setBody(record.getMarkdownContent().replaceAll(uploadDirMapper,uploadDirRealMapper));
+        //保存为当前时间
+        article.setCreatetime(new Date());
+        List<String> list = getMatchString("<img.*?>", html, false);
         if (list.size()!=0){
             status=replacePhoto(list);
-            record.setIcon(uploadDirRealMapper+list.get(0));
+            article.setIcon(uploadDirRealMapper+list.get(0));
         }else {
-            record.setIcon(uploadDirRealMapper+"clear.png");
+            article.setIcon(uploadDirRealMapper+"clear.png");
         }
-        articlemapper.insertSelective(record);
-
+        String selective = null;
+        try {
+            article.setId("");
+            articlemapper.insertSelective(article);
+            log.info("文章的id为"+article.getId());
+            log.info("文章的id为"+record.getTypeId());
+            sortArticleMapper.insertSelective(record.getTypeId(),article.getId());
+        } catch (Exception e) {
+            status=-1;
+            log.error("文章保存错误"+this.getClass().getSimpleName());
+            log.error(e.getMessage());
+        }
         return status;
     }
 

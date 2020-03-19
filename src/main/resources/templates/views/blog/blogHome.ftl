@@ -66,6 +66,12 @@
 								<li><a href="#">给站长吐槽</a></li>
 							</ul>
 						</li>
+						<li>
+							<#if user=='null'>
+								<a class="div1" href=""><span  class="glyphicon glyphicon-paperclip"></span>写文章</a>
+							</#if>
+
+						</li>
 
 					</ul>
 				</div>
@@ -183,7 +189,7 @@
 								<#if sort??>
 									<#list sort as values>
 										<li>
-											<span><i class="icon-minus-sign"></i> ${values.name}</span> <a href=""></a>
+											<span><i class="glyphicon glyphicon-plus-sign"></i> ${values.name}</span> <a href=""></a>
 											<ul>
 												<#list values.sorts as sorts>
 													<li>
@@ -543,8 +549,8 @@
 				$('.tree li.parent_li > span').on('click', function (e) {
 					var children = $(this).parent('li.parent_li').find(' > ul > li');
 					if (children.is(":visible")) {
-						children.hide('fast');
-						$(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+						children.hide('fast');									//glyphicon glyphicon-plus-sign
+						$(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus-sign').removeClass('glyphicon-minus-sign');
 					} else {
 						children.show('fast');
 						$(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');

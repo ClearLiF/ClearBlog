@@ -81,7 +81,7 @@ public class HelloController extends DirComponent {
         article.setTitle(articleDTO.getTitle());
         article.setBody(articleDTO.getMarkdownContent().replaceAll(uploadDirMapper,uploadDirRealMapper));
         article.setCreatetime(new Date());
-        blogService.insert(article, articleDTO.getHtmlContent());
+        //blogService.insert(article, articleDTO.getHtmlContent());
 
         ModelAndView mv = new ModelAndView();
         return "Success";

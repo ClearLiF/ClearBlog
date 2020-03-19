@@ -1,45 +1,26 @@
 package com.lfq.dto;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * @author: 李琪
  * @date: 2020/3/11
  * @description 一般类
  */
+@Data
 public class ArticleDTO {
+    @NotNull(message = "用户ID不能为空")
+    private String userId;
+    @NotNull(message = "类型不能为空")
+    private String typeId;
+    @NotNull(message = "题目不能为空")
     private String title;
+    @NotNull(message = "html不能为空")
     private String htmlContent;
+    @NotNull(message = "markdown记录不能为空")
     private String markdownContent;
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "title='" + title + '\'' +
-                ", htmlContent='" + htmlContent + '\'' +
-                ", markdownContent='" + markdownContent + '\'' +
-                '}';
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getHtmlContent() {
-        return htmlContent;
-    }
-
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
-    }
-
-    public String getMarkdownContent() {
-        return markdownContent;
-    }
-
-    public void setMarkdownContent(String markdownContent) {
-        this.markdownContent = markdownContent;
-    }
 }

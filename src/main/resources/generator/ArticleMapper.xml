@@ -18,8 +18,8 @@
   </sql>
   <sql id="Base_Column_List2">
     article.id, article.author, article.createtime, article.title,
-article.authority, article.statu, article.views,
-article.like_count, article.icon
+    article.authority, article.statu, article.views,
+    article.like_count, article.icon
 ,`user`.name
   </sql>
   <resultMap id="BaseResultMap2" type="com.lfq.generate.Article">
@@ -70,10 +70,15 @@ article.like_count, article.icon
       #{views,jdbcType=BIGINT}, #{likeCount,jdbcType=BIGINT}, #{icon,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lfq.generate.Article" useGeneratedKeys="true">
+  <insert id="insertSelective"  parameterType="com.lfq.generate.Article"
+         keyProperty="id" >
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select UUID()
+    </selectKey>
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="author != null">
+        id,
+        <if test="author != null">
         author,
       </if>
       <if test="createtime != null">
@@ -102,7 +107,8 @@ article.like_count, article.icon
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="author != null">
+      #{id},
+        <if test="author != null">
         #{author,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
@@ -130,6 +136,7 @@ article.like_count, article.icon
         #{icon,jdbcType=VARCHAR},
       </if>
     </trim>
+
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lfq.generate.Article">
     update article

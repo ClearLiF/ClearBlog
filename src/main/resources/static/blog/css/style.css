@@ -59,3 +59,64 @@
     border:1px solid #94a0b4;
     color:#000
 }
+.div1{
+
+    margin:0 auto;
+
+    background: darkcyan;
+
+    width:200px;
+
+    height:200px;
+
+    border:2px solid darkslategray;
+
+    border-radius:30px;
+
+    text-align: center;
+
+    line-height: 200px;
+
+}
+.div2{
+    color: rgba(0,0,0,.75);
+    font-family: -apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+    font-variant-ligatures: common-ligatures;
+    line-height: 1.625;
+    -webkit-font-smoothing: antialiased;
+    tab-size: 4;
+    text-rendering: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: none;
+    overflow: hidden;
+}
+.div3{
+    width: 100% !important;
+    height: 100% !important;
+}
+.input1{
+    -webkit-font-smoothing: antialiased;
+    tab-size: 4;
+    box-sizing: border-box;
+    margin: 0;
+    overflow: visible;
+    font-family: inherit;
+    display: block;
+    font-variant-ligatures: no-common-ligatures;
+    height: 36px;
+    color: inherit;
+    background-image: none;
+    border: 0;
+    border-radius: 4px;
+    width: 100%;
+    padding: 8px;
+    font-size: 18px;
+    line-height: 24px;
+    background-color: #fff;
+
+}

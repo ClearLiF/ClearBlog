@@ -19,7 +19,7 @@ public class Sort implements Serializable {
     private String description;
 
     private String url;
-    private  List<Sort> sorts;
+    private List<Sort> sorts;
 
     public List<Sort> getSorts() {
         return sorts;

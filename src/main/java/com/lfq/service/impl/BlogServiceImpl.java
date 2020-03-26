@@ -52,6 +52,9 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
         article.setAuthority(1);
         article.setTitle(record.getTitle());
         article.setBody(record.getMarkdownContent().replaceAll(uploadDirMapper,uploadDirRealMapper));
+        article.setStatu(0);
+        article.setViews(0L);
+        article.setLikeCount(0L);
         //保存为当前时间
         article.setCreatetime(new Date());
         List<String> list = getMatchString("<img.*?>", html, false);
@@ -79,6 +82,16 @@ public class BlogServiceImpl extends BaseServiceImpl<Article> implements BlogSer
     @Override
     public List<Sysfield> selectByParentId(String MyColums, String ParentId) {
         return null;
+    }
+
+    @Override
+    public List<Article> selectArticleByUser(String id, String userId) {
+        try {
+            return articlemapper.selectArticleByUser(id,userId);
+        } catch (Exception e) {
+            log.error("读取作者的其他文章出现错误");
+            return new ArrayList<>();
+        }
     }
 
 

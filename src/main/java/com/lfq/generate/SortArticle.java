@@ -10,6 +10,15 @@ public class SortArticle implements Serializable {
     private String sortId;
 
     private String artId;
+    private Sort sort;
+
+    public Sort getSort() {
+        return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
+    }
 
     private static final long serialVersionUID = 1L;
 

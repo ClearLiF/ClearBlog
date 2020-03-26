@@ -129,6 +129,12 @@ public class UserController extends DirComponent {
     public   Object GetAddress(String  parentiD, String MyColums){
         return userService.selectByParentId(MyColums, parentiD);
     }
+    @RequestMapping("logOut")
+    public Object logOut(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().invalidate();
+        clearUserCookie(request,response);
+        return "redirect:/blog/home";
+    }
 
     /**
      *

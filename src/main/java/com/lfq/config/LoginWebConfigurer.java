@@ -37,10 +37,12 @@ public class LoginWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry interceptorRegistry) {
         log.info("配置拦截器");
-      /*  interceptorRegistry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/user/login",
+      interceptorRegistry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/user/login",
                 "/user/register"
                 ,"/user/loginInto",
-                "/user/registerSave");*/
+                "/user/registerSave",
+                "/blog/toBlogHome","/blog/home","/user/checkUserName",
+                "/user/getAddress","/blog/view","/comment/**","/page/**");
 
     }
     @Override

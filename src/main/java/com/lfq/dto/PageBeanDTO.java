@@ -22,6 +22,15 @@ public class PageBeanDTO<T> {
     * 数据类型
     * */
     private List<T> rows;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     @Override
     public String toString() {

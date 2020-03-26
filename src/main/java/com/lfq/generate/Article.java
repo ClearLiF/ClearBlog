@@ -28,6 +28,15 @@ public class Article implements Serializable {
 
     private String icon;
     private User user;
+    private SortArticle sortArticle;
+
+    public SortArticle getSortArticle() {
+        return sortArticle;
+    }
+
+    public void setSortArticle(SortArticle sortArticle) {
+        this.sortArticle = sortArticle;
+    }
 
     public User getUser() {
         return user;

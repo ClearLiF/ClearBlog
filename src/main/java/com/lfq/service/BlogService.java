@@ -5,6 +5,7 @@ import com.lfq.dto.ArticleDTO;
 import com.lfq.generate.Sysfield;
 import com.lfq.service.base.IBaseService;
 import com.lfq.generate.Article;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public interface BlogService extends IBaseService<Article> {
 
     public int insert(ArticleDTO record, String html);
     List<Sysfield> selectByParentId(String MyColums , String  ParentId);
+    List<Article> selectArticleByUser(String id,String userId);
 
 
 }

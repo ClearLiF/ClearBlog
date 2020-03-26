@@ -48,7 +48,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/home"><img src="${request.contextPath}/blog/images/clear.png" alt="company logo" /></a>
+					<a class="navbar-brand" href="/blog/home"><img src="${request.contextPath}/blog/images/clear.png" alt="company logo" /></a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right custom-menu">
@@ -59,7 +59,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 								<#if user=='null'>登录<#else>个人中心</#if> <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="<#if user=='null'>/user/login<#else>/user/myself</#if> "><#if user=='null'>登录<#else>个人中心</#if> </a></li>
+								<li><a href="<#if user=='null'>/user/login<#else>/user/logOut</#if> "><#if user=='null'>登录<#else>退出登录</#if> </a></li>
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">联系站长</li>
 								<li><a href="#">给站长送吃的</a></li>
@@ -67,12 +67,10 @@
 							</ul>
 						</li>
 						<li>
-							<#if user=='null'>
-								<a class="div1" href=""><span  class="glyphicon glyphicon-paperclip"></span>写文章</a>
+							<#if user!='null'>
+								<a href="/blog/toBlogEdit"><span  class="glyphicon glyphicon-paperclip"></span>写文章</a>
 							</#if>
-
 						</li>
-
 					</ul>
 				</div>
 			</div>
@@ -95,6 +93,11 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+		<div id="typeInfo">
+			<div id="alert1" class="alert alert-info alert-dismissible" role="alert" style="padding-top: 110px">
+				<p id="typep" value="" class="text-center"><strong>当前所在类型</strong></p>
+			</div>
+		</div>
 
 		<!-- Page Content -->
 		<section class="container blog">
@@ -168,7 +171,8 @@
 		        </div>
 		            <!-- Blog Sidebar Column -->
 		            <aside class="col-md-4 sidebar-padding">
-		                <div class="blog-sidebar">
+		                <div class="blog-sidebar"><span id="htmer_time" ></span></div>
+						<div class="blog-sidebar">
 		                    <div class="input-group searchbar">
 		                        <input type="text" class="form-control searchbar" placeholder="Search for...">
 		                        <span class="input-group-btn">
@@ -193,7 +197,7 @@
 											<ul>
 												<#list values.sorts as sorts>
 													<li>
-														<a href=""><span><i class="icon-leaf"></i> ${sorts.name}</span></a>
+														<a href="javascript:toPage(1,'${sorts.name}','${sorts.id}');"><span><i class="icon-leaf"></i> ${sorts.name}</span></a>
 													</li>
 												</#list>
 											</ul>
@@ -256,7 +260,7 @@
 		                    </div>
 		                </div>
 
-		                <div class="blog-sidebar">
+		               <#-- <div class="blog-sidebar">
 		                    <h4 class="sidebar-title"><i class="fa fa-comments"></i> Recent Comments</h4>
 		                    <hr style="margin-bottom: 5px;">
 		                     <ul class="sidebar-list">
@@ -267,7 +271,7 @@
 		                        <li><h5 class="blog-title">Author Name</h5><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
 		                        </li>
 							</ul>
-						</div>
+						</div>-->
 
 					</aside>
 				</div>
@@ -306,19 +310,34 @@
         <script>
 			var DATA ;
 			var pageSizeNum = 7;
-			function toPage(num){
+			function toPage(num,type,id){
+				var typeId='';
+				if (typeof type == "undefined" || type == null || type == ""){
+					//console.log(type);
+					$("#typep").html('当前为主页面');
+				}else {
+					//console.log(type);
+					$("#typep").html('当前为'+type+'类型').val(id);
+					//typeId=id;
+				}
+				typeId =$("#typep").val();
+				if (typeof typeId == "undefined" || typeId == null || typeId == ""){
+					typeId='undefined';
+				}
+				//console.log($("#typep").val());
 				$.ajax({
-					url:'${request.contextPath}/page/listblog/'+num,
+					url:'${request.contextPath}/page/'+typeId+'/'+num,
 					type:'POST',
 					data:{
-						'pageNum':num,        //第几页
+						'pageNum':num, //第几页
+						'typeId':typeId
 					},
 					success:function(data){
 						//console.log(data);
 						DATA=data;
 						$(".clear").empty();
 						$("#myhr").hide();
-						console.log($("#myhr"));;
+						//console.log($("#myhr"));;
 						$.each(data.rows,function (key,value) {
 
 							addhtml(value);
@@ -346,14 +365,14 @@
 				html.push('  <div class="clear"><hr class="clear"></div> <div class="row clear">' +
 						'               <div class="col-sm-4 col-md-4 ">' +
 						'                   <div class="blog-thumb">' +
-						'                       <a href="#">' +
+						'                       <a href="/blog/view?blogId='+value.id+'">' +
 						'                           <img class="img-responsive" src="'+value.icon+'" alt="photo">\n' +
 						'                       </a>' +
 						'                    </div>' +
 						'               </div>' +
 						'               <div class="col-sm-8 col-md-8">' +
 						'                   <h2 class="blog-title" style="font-size: 20px">' +
-						'                        <a href="#">'+value.title+'</a>&nbsp;&nbsp;<span class="glyphicon glyphicon-tags"  aria-hidden="true">后端模块</span>' +
+						'                        <a href="/blog/view?blogId='+value.id+'">'+value.title+'</a>&nbsp;&nbsp;<span class="glyphicon glyphicon-tags"  aria-hidden="true">'+value.sortArticle.sort.name+'</span>' +
 						'                   </h2>\n' +
 						'                   <p><i class="fa fa-calendar-o"></i>  '+dateFormat(value.createtime)+' \n' +
 						'                       <span class="comments-padding"></span>' +
@@ -396,7 +415,7 @@
 				$('#pageaction').empty();
 				var html = [];
 				var nowGroup = searchGroup(DATA.currentPage,pageSizeNum);
-				console.log(nowGroup);
+				//console.log(nowGroup);
 				if (nowGroup-1!==0){
 					html.push(' <li> <a href="javascript:pagebar2(0);">前一页</a> </li>\n');
 				}
@@ -419,7 +438,7 @@
 						}
 					}
 				}
-				console.log(nowGroup+'  '+allGroup(DATA.totalPages));
+				//console.log(nowGroup+'  '+allGroup(DATA.totalPages));
 				if (nowGroup+1<=allGroup(DATA.totalPages)){
 					html.push(' <li> <a href="javascript:pagebar2(1);">后一页</a> </li>\n');
 
@@ -444,7 +463,7 @@
 				$('#pageaction').empty();
 
 				var nowGroup = searchGroup(DATA.currentPage,pageSizeNum);
-				console.log(nowGroup);
+				//console.log(nowGroup);
 				if (type===0){
 					nowGroup=nowGroup-1;
 					if (nowGroup-1!==0){
@@ -558,6 +577,42 @@
 					e.stopPropagation();
 				});
             });
+			function secondToDate(second) {
+				if (!second) {
+					return 0;
+				}
+				var time = new Array(0, 0, 0, 0, 0);
+				if (second >= 365 * 24 * 3600) {
+					time[0] = parseInt(second / (365 * 24 * 3600));
+					second %= 365 * 24 * 3600;
+				}
+				if (second >= 24 * 3600) {
+					time[1] = parseInt(second / (24 * 3600));
+					second %= 24 * 3600;
+				}
+				if (second >= 3600) {
+					time[2] = parseInt(second / 3600);
+					second %= 3600;
+				}
+				if (second >= 60) {
+					time[3] = parseInt(second / 60);
+					second %= 60;
+				}
+				if (second > 0) {
+					time[4] = second;
+				}
+				return time;
+			}
+			function setTime() {
+				var create_time = Math.round(new Date(Date.UTC(2020, 02, 20, 11, 42, 23)).getTime() / 1000);
+				var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+				currentTime = secondToDate((timestamp - create_time));
+				currentTimeHtml = 'Clear博客已经运行：' + currentTime[0] + '年 ' + currentTime[1] + '天 '
+						+ currentTime[2] + '时 ' + currentTime[3] + '分 ' + currentTime[4]
+						+ '秒';
+				document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+			}    setInterval(setTime, 1000);
+
         </script>
 
     </body>

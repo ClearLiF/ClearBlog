@@ -1,5 +1,9 @@
 package com.lfq.service.base;
 
+import com.lfq.generate.Comment;
+
+import java.util.List;
+
 /**
  * @author: Clear
  * @date: 2020/3/8
@@ -17,5 +21,6 @@ public interface IBaseService<T> {
     int updateByPrimaryKeySelective(T record);
 
     int updateByPrimaryKey(T record);
+
 
 }

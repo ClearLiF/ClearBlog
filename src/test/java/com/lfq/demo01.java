@@ -1,9 +1,11 @@
 package com.lfq;
 
 import com.lfq.generate.Article;
+import com.lfq.generate.Comment;
 import com.lfq.generate.Sort;
 import com.lfq.generate.User;
 import com.lfq.service.BlogService;
+import com.lfq.service.CommentService;
 import com.lfq.service.SortService;
 import com.lfq.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -82,6 +84,17 @@ public class demo01   {
             System.out.println(sort);
             System.out.println("分割线-----------------------");
             System.out.println(sort.getSorts().size());
+        }
+    }
+    @Autowired
+    private CommentService commentService;
+    @Test
+    public void test8(){
+        List<Comment> comments = commentService.selectByArticle("3cf35b3e-6b59-11ea-9647-00ffc23825e9");
+        System.out.println(comments.size());
+       // System.out.println(comments);
+        for (Comment comment : comments) {
+            System.out.println(comment);
         }
     }
 

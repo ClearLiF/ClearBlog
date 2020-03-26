@@ -67,6 +67,7 @@
         <#--个人中心-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right custom-menu">
+                <li ><a href="/blog/toBlogHome">主页</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <#if user=='null'>登录<#else><input type="hidden" id="userid" value="${user.id}"><span style="color: black;font-size: 20px">用户名:${user.name}</span></#if> <span class="caret"></span></a>
@@ -120,11 +121,11 @@
                         <textarea class="form-control" id="message-text"></textarea>
                     </div>
                     <div>
-                        <select class="selectpicker" data-size="5">
+                        <select class="selectpicker" data-size="5" id="typeOption">
                             <#if sort??>
                                 <#list sort as values>
                                             <#list values.sorts as sorts>
-                                                <option id="typeOption" data-subtext="${values.name}" value="${sorts.id}">${sorts.name}</option>
+                                                <option data-subtext="${values.name}" value="${sorts.id}">${sorts.name}</option>
                                             </#list>
                                 </#list>
                             </#if>
@@ -212,7 +213,7 @@
         var userid = $("#userid").val();
         var markdownContent = testEditor.getMarkdown();
         var htmlContent = testEditor.getHTML();
-        console.log(htmlContent+markdownContent);
+       // console.log(htmlContent+markdownContent);
         $.ajax({
             url: "/blog/editorContent",
             data: JSON.stringify({userId:userid,title: title,typeId:type, htmlContent: htmlContent, markdownContent: markdownContent}),
@@ -220,7 +221,8 @@
             contentType: 'application/json',
             success: function () {
                 alert("发布成功");
-                //open($.html(data));
+                    open("/blog/toBlogHome");
+
             },
             error: function () {
                 alert("发布失败");

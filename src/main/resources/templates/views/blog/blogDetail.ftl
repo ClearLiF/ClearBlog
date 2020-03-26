@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<link rel="stylesheet" href="${request.contextPath}/editormd/css/editormd.css" />
+<link rel="stylesheet" href="${request.contextPath}/blog/editormd/css/editormd.css" />
 <link rel="shortcut icon"  type="image/x-icon" />
 <script src="${request.contextPath}/js/jquery.min.js"></script>
-<script src="${request.contextPath}/editormd/lib/marked.min.js"></script>
-<script src="${request.contextPath}/editormd/lib/prettify.min.js"></script>
-<script src="${request.contextPath}/editormd/lib/raphael.min.js"></script>
-<script src="${request.contextPath}/editormd/lib/underscore.min.js"></script>
-<script src="${request.contextPath}/editormd/lib/sequence-diagram.min.js"></script>
-<script src="${request.contextPath}/editormd/lib/flowchart.min.js"></script>
-<script src="${request.contextPath}/editormd/editormd.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/lib/marked.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/lib/prettify.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/lib/raphael.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/lib/underscore.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/lib/sequence-diagram.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/lib/flowchart.min.js"></script>
+<script src="${request.contextPath}/blog/editormd/editormd.min.js"></script>
 <script>
     var testEditor;
     $(function () {
-        testEditor = editormd.markdownToHTML("content", {//注意：这里是上面DIV的id
+        testEditor = editormd.markdownToHTML(
+            "content", {//注意：这里是上面DIV的id
             htmlDecode: "style,script,iframe",
             emoji: true,
             taskList: true,

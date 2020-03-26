@@ -35,11 +35,10 @@
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right custom-menu">
-						<li class="active"><a href="#home">主页</a></li>
-						<li><a href="#about">关于</a></li>
-						<li><a href="#servi">服务</a></li>
+						<li class="active"><a href="/blog/home">主页</a></li>
+						<li><a href="#">关于</a></li>
+						<li><a href="#">服务</a></li>
 				<#--		<li><a href="#meet-team">Team</a></li>-->
-						<li><a href="#portfolio1">作品</a><li>
 						<li><a href="/user/register">注册</a></li>
 						<li><a href="/blog/toBlogHome">博客</a></li>
 						<li class="dropdown">
@@ -77,7 +76,7 @@
 								<div class="text-center"><h3>欢迎来到Clear博客系统</h3></div>
 							</div>
 						</div>
-						<h4>Lorem Ipsum is simply dummy text of typesetting industry.</h4>
+						<h4>第一版发行</h4>
 					</div>
 				</li>
 				<li><span>image3</span>
@@ -87,7 +86,7 @@
 								<div class="text-center"><h3>欢迎来到Clear博客系统</h3></div>
 							</div>
 						</div>
-						<h4>Lorem Ipsum is simply dummy text of typesetting industry.</h4>
+						<h4>QQ2630671004</h4>
 					</div>
 				</li>
 				<li><span>Image 04</span>
@@ -97,7 +96,7 @@
 								<div class="text-center"><h3>欢迎来到Clear博客系统</h3></div>
 							</div>
 						</div>
-						<h4>Lorem Ipsum is simply dummy text of typesetting industry.</h4>
+						<h4>测试版本</h4>
 					</div>
 				</li>
 				<li><span>Image 05</span>
@@ -107,7 +106,7 @@
 								<div class="text-center"><h3>感谢使用</h3></div>
 							</div>
 						</div>
-						<h4>Lorem Ipsum is simply dummy text of typesetting industry.</h4>
+						<h4>测试版本</h4>
 					</div>
 				</li>
 				<li><span>Image 06</span>
@@ -117,7 +116,7 @@
 								<div class="text-center"><h3>再一次感谢</h3></div>
 							</div>
 						</div>
-						<h4>Lorem Ipsum is simply dummy text of typesetting industry.</h4>
+						<h4>测试版本</h4>
 					</div>
 				</li>
 			</ul>
@@ -141,7 +140,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<p>
-									最后再写吧<span class="color-elements">ClearLiF</span>
+									第一版测试，个人中心模块暂时未开发，本页面导向未编写<span class="color-elements">ClearLiF</span>
 									</p>
 								</div>
 							</div>
@@ -183,25 +182,25 @@
 							</div>
 							<div class="col-md-3 portfolio-item">
 								<div class="text-center">
-									<a href="javascript:void(0);">
+									<a href="https://github.com/ClearLiF/ClearBlog">
 									<span class="fa-stack fa-lg">
 									  <i class="fa fa-circle fa-stack-2x"></i>
 									  <i class="fa fa-code fa-stack-1x"></i>
 									</span>
 									</a>
-									<h3><a href="#">代码</a></h3>
+									<h3><a href="https://github.com/ClearLiF/ClearBlog">代码</a></h3>
 									<p>致力于编程交流，以及生活交流</p>
 								</div>
 							</div>
 							<div class="col-md-3 portfolio-item">
 								<div class="text-center">
-									<a href="javascript:void(0);">
+									<a href="https://github.com/ClearLiF/ClearBlog">
 									<span class="fa-stack fa-lg">
 									  <i class="fa fa-circle fa-stack-2x"></i>
 									  <i class="fa fa-cogs fa-stack-1x"></i>
 									</span>
 									</a>
-									<h3><a href="#">源码获取</a></h3>
+									<h3><a href="https://github.com/ClearLiF/ClearBlog">源码获取</a></h3>
 									<p> 本站已上传到Github，点此获取</p>
 								</div>
 							</div>
@@ -222,33 +221,33 @@
 							<figure class="effect-oscar">
 								<img src="images/blog1.jpg" alt="img09" class="img-responsive" />
 								<figcaption>
-									<h2>Blog Post Long Title</h2>
+									<h2>暂时不可用</h2>
 									<a href="#">View more</a>
 								</figcaption>           
 							</figure>
-							<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet.</p>
+							<p class="text-center">暂时不可用</p>
 							<div class="text-center"><a class="btn btn-primary btn-noborder-radius hvr-bounce-to-bottom">Read More</a></div>
 						</div>
 						<div class="col-md-4 col-sm-12 col-xs-12 portfolio-item">
 							<figure class="effect-oscar">
 								<img src="${request.contextPath}/blog/images/blog2.jpg" alt="img09" class="img-responsive"/>
 								<figcaption>
-									<h2>Blog Post Long Title</h2>
+									<h2>暂时不可用</h2>
 									<a href="#">View more</a>
 								</figcaption>           
 							</figure>
-							<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet.</p>
+							<p class="text-center">暂时不可用</p>
 							<div class="text-center"><a class="btn btn-primary btn-noborder-radius hvr-bounce-to-bottom">Read More</a></div>
 						</div>
 						<div class="col-md-4 col-sm-12 col-xs-12 portfolio-item">
 							<figure class="effect-oscar">
 								<img src="${request.contextPath}/blog/images/blog3.jpg" alt="img09" class="img-responsive"/>
 								<figcaption>
-									<h2>Blog Post Long Title</h2>
+									<h2>暂时不可用</h2>
 									<a href="#">View more</a>
 								</figcaption>           
 							</figure>
-							<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet.</p>
+							<p class="text-center">暂时不可用</p>
 							<div class="text-center"><a class="btn btn-primary btn-noborder-radius hvr-bounce-to-bottom">Read More</a></div>
 						</div>
 					</div>
@@ -294,7 +293,7 @@
 							<ul class="social-icons">
 								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="#">暂时不可用<i class="fa fa-google-plus"></i></a></li>
 								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 							</ul>
 						</div>

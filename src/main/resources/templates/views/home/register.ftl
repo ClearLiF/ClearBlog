@@ -332,7 +332,7 @@
 	</div>
 </div>
 <#--class="navbar-fixed-bottom"-->
-<footer id="footer" >
+<footer id="footer"  >
 	<div class="container">
 		<div class="row myfooter">
 			<div class="col-sm-6"><div class="pull-left">

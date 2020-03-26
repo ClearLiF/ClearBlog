@@ -1,9 +1,6 @@
 package com.lfq.service.base;
 
-import com.lfq.generate.ArticleMapper;
-import com.lfq.generate.SortArticleMapper;
-import com.lfq.generate.SysfieldMapper;
-import com.lfq.generate.UserMapper;
+import com.lfq.generate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +17,12 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     protected SysfieldMapper sysfieldMapper;
     protected UserMapper usermapper;
     protected SortArticleMapper sortArticleMapper;
+    protected CommentMapper commentMapper;
+    @Autowired
+    public void setCommentMapper(CommentMapper commentMapper) {
+        this.commentMapper = commentMapper;
+    }
+
     @Autowired
     public void setSortArticleMapper(SortArticleMapper sortArticleMapper) {
         this.sortArticleMapper = sortArticleMapper;

@@ -23,7 +23,7 @@ public class PageServiceImpl implements PageService<Article> {
     public PageBeanDTO<Article> selectPage(PageBeanDTO<Article> pageBeanDTO) {
         int start = (pageBeanDTO.getCurrentPage()-1)*pageBeanDTO.getPageSize();
         int length= pageBeanDTO.getPageSize();
-        pageBeanDTO.setRows(articleMapper.selectPageArticle(start,length));
+        pageBeanDTO.setRows(articleMapper.selectPageArticle2(start,length,pageBeanDTO.getType()));
         int countArticle = articleMapper.countArticle();
         int pageNum = countArticle%pageBeanDTO.getPageSize()==0
                         ? countArticle/pageBeanDTO.getPageSize():

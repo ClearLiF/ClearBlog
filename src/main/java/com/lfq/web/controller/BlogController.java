@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -95,6 +95,36 @@ public class BlogController extends DirComponent {
         }
         mv.addObject("sort",sortService.selectAllByForeignKey());
         //mv.addObject("sort",sortService.selectAllByForeignKey());
+        return mv;
+    }
+    /**
+     * 无建议(默认)
+     * @description 文章的详细信息
+     * @author ClearLi
+     * @date 2020/3/21 17:35
+     * @param blogId 文章的id
+     * @param request request对象
+     * @return java.lang.Object
+     */
+    @RequestMapping("view")
+    public Object toView(@RequestParam(value = "blogId",defaultValue = "default") String blogId
+                        ,HttpServletRequest request){
+        ModelAndView mv = new ModelAndView();
+        Article article = blogService.selectByPrimaryKey(blogId);
+        //System.out.println(article.getBody());
+        List<Article> articles = blogService.selectArticleByUser(blogId, article.getAuthor());
+        mv.addObject("author",article.getUser().getName());
+        mv.addObject("articles",articles);
+        User user =getUser(request);
+        if (user!=null){
+            log.info("传入用户"+user);
+            mv.addObject("user",user);
+        }else {
+            log.info("用户为空");
+            mv.addObject("user","null");
+        }
+        mv.addObject("md",article);
+        mv.setViewName("views/blog/blogDetail2");
         return mv;
     }
     /**

@@ -6,12 +6,11 @@ import com.lfq.service.PageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author: 李琪
@@ -36,6 +35,9 @@ public class PageController {
         PageBeanDTO<Article> pageBeanDTO = new PageBeanDTO<Article>();
         pageBeanDTO.setCurrentPage(currentPage);
         pageBeanDTO.setPageSize(pageBeanSize);
+        if (!type.equals("undefined")){
+            pageBeanDTO.setType(type);
+        }
         try {
             pageBeanDTO = service.selectPage(pageBeanDTO);
             log.info("查询的值为"+pageBeanDTO);
@@ -46,4 +48,5 @@ public class PageController {
         }
         return null;
     }
+
 }

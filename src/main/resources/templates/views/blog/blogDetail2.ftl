@@ -118,11 +118,11 @@
                     <hr style="margin-bottom: 5px;">
                     <#list articles as article>
                             <div class="media">
-                                <a class="pull-left" href="/blog/view?blogId='${article.id}'">
+                                <a class="pull-left" href="/blog/view?blogId=${article.id}">
                                     <img class="img-responsive media-object" src="${article.icon}" alt="Media Object">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="/blog/view?blogId='${article.id}">${article.title}</a></h4>
+                                    <h4 class="media-heading"><a href="/blog/view?blogId=${article.id}">${article.title}</a></h4>
                                 </div>
                             </div>
                     </#list>

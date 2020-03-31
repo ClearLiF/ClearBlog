@@ -25,7 +25,7 @@ import java.util.UUID;
 /**
  * @author: clear
  * @date: 2020/3/9
- * @description 一般类
+ * @description 主界面类
  */
 @Controller//声明rest风格的控制器
 @RequestMapping("blog")

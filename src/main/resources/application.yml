@@ -3,6 +3,4 @@ server:
 mybatis:
   mapper-locations: classpath*:generator/*.xml
   type-aliases-package: com.lfq.generate
-logging:
-  level:
-    root: error
+
